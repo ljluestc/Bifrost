@@ -28,6 +28,7 @@
 | [Hprose RPC 自定义服务](https://github.com/brokercap/Bifrost/blob/v1.8.x/hprose_server/tcp_server.go)| YES  |                        |
 | StarRocks        | YES | use mysql protocol     |
 | Doris            | YES | use mysql protocol     |
+| HANA             | YES |                        |
 
 
 
@@ -267,6 +268,7 @@ plugin_sync_retry_time=5
 - github.com/syndtr/goleveldb/leveldb
 - github.com/ClickHouse/clickhouse-go
 - github.com/olivere/elastic/v7
+- github.com/SAP/go-hdb
 
 ### QQ群号： 70331601
 

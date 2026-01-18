@@ -32,6 +32,7 @@ Your star is the biggest support for Bifrost!!!
 | [Hprose RPC](https://github.com/brokercap/Bifrost/blob/v1.8.x/hprose_server/tcp_server.go)              | YES  |                                                 |
 | StarRocks                                                                                               | YES | use mysql protocol                              |
 | Doris                                                                                                   | YES | use mysql protocol                              |
+| HANA                                                                                                    | YES |                                                 |
 
 
 ##### FROM
@@ -244,6 +245,7 @@ cluster_name=bifrostTestClusterName
 - github.com/syndtr/goleveldb/leveldb
 - github.com/ClickHouse/clickhouse-go
 - github.com/olivere/elastic/v7
+- github.com/SAP/go-hdb
 
 ### QQ群号： 70331601
 
