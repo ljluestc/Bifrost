@@ -27,6 +27,7 @@ require (
 require (
 	cloud.google.com/go v0.26.0 // indirect
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/SAP/go-hdb v1.14.18
 	github.com/Shopify/toxiproxy v2.1.4+incompatible // indirect
 	github.com/aws/aws-sdk-go v1.38.3 // indirect
 	github.com/bkaradzic/go-lz4 v1.0.0 // indirect
