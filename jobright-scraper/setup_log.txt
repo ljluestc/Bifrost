@@ -1,0 +1,5 @@
+Launching Setup Browser in: /home/calelin/dev/jobright-scraper/user_data_nvidia_sequential
+>>> SETUP WINDOW LAUNCHED <<<
+Please install the extension in the first tab.
+Then verify it works in the second tab (Ashby).
+Close the browser when done.

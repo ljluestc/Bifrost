@@ -1,0 +1,12 @@
+node_modules/
+user_data*/
+*.log
+*.log.*
+*.bak
+*.bak_repair
+temp_test_profile*/
+scraper_output.txt
+fix_json.js
+repair_json.js
+test_*.js
+failed-application.json

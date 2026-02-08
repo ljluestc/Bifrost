@@ -1,0 +1,60 @@
+[2026-02-08T19:02:43.152Z] 🚀 Starting JobRight.ai Scraper v9 (PID: 2252031) (Target: 500+ jobs/hr)
+[2026-02-08T19:02:43.153Z] ℹ️  Stall Timeout set to 45s.
+[2026-02-08T19:02:43.167Z] ℹ️  Loaded 6307 existing jobs.
+[2026-02-08T19:02:43.369Z] 🎯 Target set: Stop after finding 500 new jobs.
+[2026-02-08T19:02:43.370Z] 🔗 Navigating to JobRight.ai [RECOMMENDED]...
+[2026-02-08T19:02:45.344Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6988dcce8ca8121a3a6b4574?utm_source=1014
+[2026-02-08T19:02:47.829Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:02:47.959Z] 🔄 Starting Active Scrape Cycle (Click & Scroll)...
+[2026-02-08T19:02:55.853Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6988dc858da7a6120463d6b5?utm_source=1014
+[2026-02-08T19:02:58.203Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:06.243Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/69178a6245fb6f5ead89be28?utm_source=1014
+[2026-02-08T19:03:08.696Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:16.746Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/68cfad7e846f0b04af684461?utm_source=1014
+[2026-02-08T19:03:19.479Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:27.507Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6978efc788e2b47213bcff17?utm_source=1014
+[2026-02-08T19:03:28.743Z] ⚡ Stall. Switching to: "Software Engineer"...
+[2026-02-08T19:03:30.637Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6988dcce8ca8121a3a6b4574?utm_source=1014
+[2026-02-08T19:03:30.983Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:32.989Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:39.025Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6988d97e0f6f7e7a2ce3fd4c?utm_source=1014
+[2026-02-08T19:03:41.021Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6988dc858da7a6120463d6b5?utm_source=1014
+[2026-02-08T19:03:41.308Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:43.323Z]       ↳ Clicking Apply Button...
+[2026-02-08T19:03:49.350Z]    🔎 Resolving Internal Link: https://jobright.ai/jobs/info/6890e71c4c7e851b90aca822?utm_source=1014
+[2026-02-08T19:03:49.527Z] ❌ Crash: page.$: Target page, context or browser has been closed
+[2026-02-08T19:03:49.529Z]       ⚠️ Resolution failed: page.goto: Target page, context or browser has been closed
+Call log:
+[2m  - navigating to "https://jobright.ai/jobs/info/6890e71c4c7e851b90aca822?utm_source=1014", waiting until "domcontentloaded"[22m
+
+[2026-02-08T19:03:49.530Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.531Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.531Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.532Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.532Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.532Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.532Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.532Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.533Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.533Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.534Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.534Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.534Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.535Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.535Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.535Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.535Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.535Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.536Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.536Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.536Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.536Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.536Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.537Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.537Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.537Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.537Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.538Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.539Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.540Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed
+[2026-02-08T19:03:49.540Z]       ⚠️ Resolution failed: browserContext.newPage: Target page, context or browser has been closed

@@ -1,0 +1,1 @@
+./run_scraper_v9.sh: line 19: 2249188 Killed                  node jobright_scraper_v8.js --target-new=500 >> scraper_runner_v9.log 2>&1

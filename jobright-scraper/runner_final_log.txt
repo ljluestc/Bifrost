@@ -1,0 +1,115 @@
+>>> STARTING AUTONOMOUS SESSION RUNNER <<<
+🧹 Cleaning up session locks...
+   Removed SingletonSocket.
+Loaded 9328 total jobs.
+Remaining jobs after filtering: 9280
+ℹ️  Sorting jobs: Ashby -> NVIDIA -> Workday -> LinkedIn -> Others...
+ℹ️  Processing all valid jobs sequentially (Mode: Overnight)...
+Loaded 8 useful selectors from recordings.
+🚀 Launching Browser...
+   Extension Path: /home/calelin/dev/jobright-scraper/jobright-extension
+🔒 Verifying Login...
+   ✅ Likely logged in (URL does not contain 'login'/'signup')
+
+[1/9280] Processing: Backend Engineer, AI (Senior/Staff Level) @ 
+URL: https://jobs.ashbyhq.com/granted/8b792376-42d1-4f6d-99cc-2bbac0ce63a3?src=LinkedIn&jr_id=68cdbc7bb2a74e1837edbe19
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[2/9280] Processing: Lead AI Engineer @ 
+URL: https://jobs.ashbyhq.com/strider-technologies/c23d747e-f558-4cb3-9d2f-b77741a61fe0?LyJbpzwrRw=LinkedIn&jr_id=6960a2dca1bbea1d9a7b65b3
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[3/9280] Processing: Staff Software Engineer, Enterprise @ 
+URL: https://jobs.ashbyhq.com/docker/07b9cfc5-3583-4a62-9d44-c2b89cfd366d/application?utm_source=Linkedin+Posting&jr_id=6945bd9dd1953b5d11bebcaa
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[4/9280] Processing: Senior Software Engineer @ 
+URL: https://jobs.ashbyhq.com/strongdm/a37ef168-8d1c-4b27-b978-f4a13141daaa/application?utm_source=wlM30je6do&jr_id=69202274a49a885af9a36eaa
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[5/9280] Processing: Senior Backend Software Engineer - Enterprise / Commerce (100% Remote) @ 
+URL: https://jobs.ashbyhq.com/hopper/60ada813-ad62-4907-b529-269c62a630f7/application?utm_source=jobright&jr_id=68f0625d569e752a99d4b17e
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[6/9280] Processing: Staff Software Engineer, Realtime Data @ 
+URL: https://jobs.ashbyhq.com/tectonai/510e8b26-c714-496b-910e-50c23ff29ed5?source=jobright&jr_id=680fdfa8488427fb2f1cb2d2
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[7/9280] Processing: Senior Software Engineer @ 
+URL: https://jobs.ashbyhq.com/f2-ai/1fc58019-d335-4b08-83d2-40d0d4f97792/application?utm_source=n2WKoOG08x&source=DQkMdOzYjX&jr_id=68f92652cadb2e5a06a618fe
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[8/9280] Processing: Infrastructure Security Engineer @ 
+URL: https://jobs.ashbyhq.com/harvey/735fd3f1-8be0-444f-b377-3dc5f17fc02e?utm_source=58AzKxpoq0&jr_id=694e3c22f5bef51c96eb9b73
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[9/9280] Processing: Senior Research Engineer, CFD Algorithm Development @ 
+URL: https://jobs.ashbyhq.com/sandboxaq/05db22fc-a62f-4a19-9ff4-c99f7c9b8a9b/application?utm_source=jobright&jr_id=692695aef0beb07232625cba
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[10/9280] Processing: Software Engineer, Backend, Mid-Level @ 
+URL: https://jobs.ashbyhq.com/ramp/a7b5b128-c024-433a-b5d7-4e7b7ed7a49d?src=LinkedIn&jr_id=6920a4883f782d2f1afc9b3b
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[11/9280] Processing: Software Engineer, iOS, All Levels @ 
+URL: https://jobs.ashbyhq.com/ramp/4859cd5e-f2a9-44d7-81f7-8bfc0e62369f?src=jobright&jr_id=69096c45bcccf20de59daff3
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[12/9280] Processing: Full Stack Software Engineer, AI @ 
+URL: https://jobs.ashbyhq.com/sandboxaq/38b8c6ac-4f9b-46bf-9e16-cfe64b794fa8/application?utm_source=jobright&jr_id=693cff9450bbaf76505030cd
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[13/9280] Processing: Senior Security Engineer @ 
+URL: https://jobs.ashbyhq.com/0g/7f0e0f37-f757-4d2a-b7e8-d50204034bef/application?utm_source=jobright&jr_id=695e0eb261d5475ac1a0cfaa
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[14/9280] Processing: Software Engineer III @ 
+URL: https://jobs.ashbyhq.com/kueski/38ae1d26-c92f-4e75-baa5-861bb1b51032/application?utm_source=jobright&jr_id=693e3cf150bbaf765050f058
+   ! Error: page.innerText: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[15/9280] Processing: IT Systems Engineer, Infrastructure & Platform Reliability @ 
+URL: https://jobs.ashbyhq.com/Lambda/c79ffbf7-0d1c-445c-9942-038d4ef81dfb?utm_source=xb6aQJ58Pe&jr_id=690e1d3044146d3b6ec514cb
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
+   ✅ Browser Relaunched Successfully.
+
+[16/9280] Processing: Software Engineer, Backend, Senior & Staff @ 
+URL: https://jobs.ashbyhq.com/ramp/1e077eec-dcae-4be5-a446-b3dd089777c6?src=LinkedIn&jr_id=690ae1d4bcccf20de59e6ed4
+   ⏳ Waiting for elements/success...
+   ! Error: page.evaluate: Target page, context or browser has been closed
+   🚨 BROWSER CRASH DETECTED! Relaunching in 5s...
