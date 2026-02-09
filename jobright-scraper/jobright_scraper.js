@@ -141,10 +141,13 @@ async function run() {
 
                 if (jobs.length > 0) {
                     let newCount = 0;
-                    // Note: We don't load currentFileContent here anymore because we save iteratively
 
-                    // Process jobs sequentially to allow resolution
-                    for (const j of jobs) {
+                    // Concurrency Control
+                    const CONCURRENCY_LIMIT = 5;
+                    const results = [];
+
+                    // Helper to process a single job
+                    const processJob = async (j) => {
                         let rawUrl = j.originalUrl || j.externalUrl || j.redirectUrl || j.url;
 
                         // RESOLVE INTERNAL LINKS
@@ -153,7 +156,7 @@ async function run() {
                             try {
                                 tempPage = await context.newPage();
                                 log(`   🔎 Resolving Internal Link: ${rawUrl}`);
-                                await tempPage.goto(rawUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+                                await tempPage.goto(rawUrl, { waitUntil: 'domcontentloaded', timeout: 15000 }); // Reduced timeout
 
                                 // Strategy 1: Check if we got redirected
                                 let currentUrl = tempPage.url();
@@ -162,7 +165,7 @@ async function run() {
                                     log(`      ↳ Redirected to: ${rawUrl}`);
                                 } else {
                                     // Strategy 2: Extract from "Apply" button or Metadata
-                                    await tempPage.waitForTimeout(2000);
+                                    await tempPage.waitForTimeout(1000); // Reduced wait
 
                                     // Try to find the "Apply" button
                                     const applyBtn = await tempPage.$('a[href*="greenhouse"], a[href*="lever"], a[href*="workday"], a[href*="ashby"], a[href*="recruit"], a[class*="apply"]');
@@ -191,7 +194,7 @@ async function run() {
                                                     log(`      ↳ Popup Redirected to: ${rawUrl}`);
                                                     await newPage.close();
                                                 } else {
-                                                    await tempPage.waitForTimeout(3000);
+                                                    await tempPage.waitForTimeout(2000);
                                                     currentUrl = tempPage.url();
                                                     if (!currentUrl.includes('jobright.ai')) {
                                                         rawUrl = currentUrl;
@@ -222,17 +225,29 @@ async function run() {
                                     company: j.company ? (j.company.name || j.company) : "Unknown",
                                     scraped_at: new Date().toISOString(),
                                 };
-                                // Save IMMEDIATELY to prevent data loss on crash
-                                try {
-                                    const currentData = fs.existsSync(OUTPUT_FILE) ? JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8')) : [];
-                                    currentData.push(newJob);
-                                    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(currentData, null, 2));
-                                    log(`   💾 Saved: ${j.title} (${rawUrl})`);
-                                    newCount++;
-                                    totalNew++;
-                                } catch (saveErr) {
-                                    log(`   ⚠️ Save failed: ${saveErr.message}`);
-                                }
+                                return newJob;
+                            }
+                        }
+                        return null;
+                    };
+
+                    // Execute in chunks
+                    for (let i = 0; i < jobs.length; i += CONCURRENCY_LIMIT) {
+                        const chunk = jobs.slice(i, i + CONCURRENCY_LIMIT);
+                        const chunkResults = await Promise.all(chunk.map(job => processJob(job)));
+
+                        // Save valid results immediately
+                        const validJobs = chunkResults.filter(j => j !== null);
+                        if (validJobs.length > 0) {
+                            try {
+                                const currentData = fs.existsSync(OUTPUT_FILE) ? JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8')) : [];
+                                currentData.push(...validJobs);
+                                fs.writeFileSync(OUTPUT_FILE, JSON.stringify(currentData, null, 2));
+                                validJobs.forEach(j => log(`   💾 Saved: ${j.title} (${j.url})`));
+                                newCount += validJobs.length;
+                                totalNew += validJobs.length;
+                            } catch (saveErr) {
+                                log(`   ⚠️ Save failed: ${saveErr.message}`);
                             }
                         }
                     }
