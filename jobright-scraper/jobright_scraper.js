@@ -51,6 +51,21 @@ function getNextKeyword(current) {
     return SEARCH_KEYWORDS[nextIdx];
 }
 
+// Helper to sanitize URL
+function sanitizeUrl(url) {
+    try {
+        if (!url) return null;
+        if (url.includes('jobright.ai')) return null; 
+
+        const u = new URL(url);
+        // Remove common tracking params
+        ['utm_source', 'utm_medium', 'utm_campaign', 'gh_src', 'lever-source', 'ref'].forEach(p => u.searchParams.delete(p));
+        return u.toString();
+    } catch (e) {
+        return url.split('?')[0];
+    }
+}
+
 async function run() {
     log(`🚀 Starting JobRight.ai Scraper v9 (PID: ${process.pid}) (Target: 500+ jobs/hr)`);
     log(`ℹ️  Stall Timeout set to ${STALL_TIMEOUT_MS / 1000}s.`);
@@ -143,7 +158,7 @@ async function run() {
                     let newCount = 0;
 
                     // Concurrency Control
-                    const CONCURRENCY_LIMIT = 5;
+                    const CONCURRENCY_LIMIT = 15; // Increased for performance
                     const results = [];
 
                     // Helper to process a single job
@@ -155,8 +170,11 @@ async function run() {
                             let tempPage = null;
                             try {
                                 tempPage = await context.newPage();
+                                // Block resources for speed
+                                await tempPage.route('**/*.{png,jpg,jpeg,gif,svg,css,font,woff,woff2}', route => route.abort());
+
                                 log(`   🔎 Resolving Internal Link: ${rawUrl}`);
-                                await tempPage.goto(rawUrl, { waitUntil: 'domcontentloaded', timeout: 15000 }); // Reduced timeout
+                                await tempPage.goto(rawUrl, { waitUntil: 'domcontentloaded', timeout: 10000 }); // Reduced timeout further
 
                                 // Strategy 1: Check if we got redirected
                                 let currentUrl = tempPage.url();
@@ -215,12 +233,13 @@ async function run() {
                         }
 
                         if (rawUrl && !rawUrl.includes('jobright.ai')) {
-                            const u = rawUrl.split('?')[0];
-                            if (!seenUrls.has(u)) {
-                                seenUrls.add(u);
+                            // Sanitize immediately
+                            const cleanUrl = sanitizeUrl(rawUrl);
+                            if (cleanUrl && !seenUrls.has(cleanUrl)) {
+                                seenUrls.add(cleanUrl);
                                 const newJob = {
                                     id: j.id,
-                                    url: rawUrl,
+                                    url: cleanUrl, // Save clean URL
                                     title: j.title,
                                     company: j.company ? (j.company.name || j.company) : "Unknown",
                                     scraped_at: new Date().toISOString(),

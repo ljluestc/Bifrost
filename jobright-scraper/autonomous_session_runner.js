@@ -23,7 +23,7 @@ const WAIT_TIME_MS = 250;
 const ACTION_TIMEOUT_MS = 60 * 1000;
 const JOB_TIMEOUT_MS = 120 * 1000; // 120s (User Request)
 const OVERNIGHT_MODE = true; // Auto-Retry enabled
-const STRICT_PASSIVE_MODE = true; // ACTIVE MODE (Auto-Clicks Enabled)
+const STRICT_PASSIVE_MODE = false; // ACTIVE MODE (Auto-Clicks Enabled)
 const LEARN_ONLY_MODE = true; // FULL AUTONOMY (Heuristics Enabled for Speed)
 const HIGH_THROUGHPUT_MODE = true; // 100 jobs/hr Target
 

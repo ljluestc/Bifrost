@@ -585,43 +585,27 @@ function loadRecordings() {
         try {
             // USER REQUEST: Use newjobs.json
             if (fs.existsSync(NEW_JOBS_FILE)) {
-                console.log("ℹ️  Loading jobs from newjobs.json...");
+                console.log("ℹ️  Loading jobs from newjobs.json (Priority Set)...");
                 const rawData = fs.readFileSync(NEW_JOBS_FILE, 'utf8');
                 try {
-                    allJobs = JSON.parse(rawData);
-                    console.log("   ✅ Standard JSON parse successful.");
-                } catch (jsonError) {
-                    console.log("⚠️ Standard JSON parse failed, attempting Recovery Strategies...");
-                    // Strategy 1: Concatenated Arrays
-                    if (rawData.includes('][')) {
-                        console.log("   🔧 Strategy 1: Detecting Concatenated Arrays (][)...");
-                        try {
-                            const fixedData = rawData.replace(/\]\s*\[/g, ',');
-                            allJobs = JSON.parse(fixedData);
-                            console.log("   ✅ Strategy 1 Successful.");
-                        } catch (e1) { console.log("   ❌ Strategy 1 Failed."); }
-                    }
-                    // Strategy 2: Concatenated Objects
-                    if (allJobs.length === 0 && rawData.includes('}{')) {
-                        console.log("   🔧 Strategy 2: Detecting Concatenated Objects (}{)...");
-                        try {
-                            const fixedData = rawData.replace(/}\s*{/g, '},{');
-                            allJobs = JSON.parse(`[${fixedData}]`);
-                            console.log("   ✅ Strategy 2 Successful.");
-                        } catch (e2) { console.log("   ❌ Strategy 2 Failed."); }
-                    }
-                    // Strategy 3: NDJSON
-                    if (allJobs.length === 0) {
-                        console.log("   🔧 Strategy 3: Attempting NDJSON/Line-based parse...");
-                        allJobs = rawData.split('\n').map(l => l.trim()).filter(l => l.length > 0)
-                            .map(l => { try { return JSON.parse(l); } catch (e) { return null; } }).filter(j => j);
-                        if (allJobs.length > 0) console.log(`   ✅ Strategy 3 Successful: ${allJobs.length} records.`);
-                    }
+                    const priorityJobs = JSON.parse(rawData);
+                    allJobs = allJobs.concat(priorityJobs);
+                    console.log(`   ✅ Loaded ${priorityJobs.length} priority jobs.`);
+                } catch (e) { console.log("   ⚠️ Failed to parse priority jobs."); }
+            }
+
+            console.log("ℹ️  Loading jobs from job_links.json (Scraper Output)...");
+            if (fs.existsSync(JOBS_FILE)) {
+                try {
+                    const scrapedJobs = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf8'));
+                    allJobs = allJobs.concat(scrapedJobs);
+                    console.log(`   ✅ Loaded ${scrapedJobs.length} scraped jobs.`);
+                } catch (e) {
+                    console.log(`   ⚠️ Failed to parse job_links.json: ${e.message}`);
                 }
             } else {
-                console.log("⚠️ newjobs.json not found, falling back to job_links.json");
-                if (!fs.existsSync(JOBS_FILE)) fs.writeFileSync(JOBS_FILE, JSON.stringify([]));
-                allJobs = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf8'));
+                console.log("⚠️ job_links.json not found. initializing...");
+                fs.writeFileSync(JOBS_FILE, JSON.stringify([]));
             }
         } catch (e) {
             console.error("Failed to load jobs:", e.message);
