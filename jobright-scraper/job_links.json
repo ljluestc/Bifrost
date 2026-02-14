@@ -12912,34 +12912,6 @@
     "system": "Oracle"
   },
   {
-    "id": "6943381cdd382f5f56692d53",
-    "title": "SailPoint Developer",
-    "company": "",
-    "url": "https://wd1.myworkdaysite.com/en-US/recruiting/clorox/Clorox/job/Durham-NC---USA-Strickland-Bldg/SailPoint-Developer_20618?SID=122&jr_id=6943381cdd382f5f56692d53",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T17:02:56.259Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "6943381cdd382f5f56692d53",
-      "title": "SailPoint Developer",
-      "company": "",
-      "url": "https://wd1.myworkdaysite.com/en-US/recruiting/clorox/Clorox/job/Durham-NC---USA-Strickland-Bldg/SailPoint-Developer_20618?SID=122&jr_id=6943381cdd382f5f56692d53",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T17:02:56.244Z",
-          "message": "Applying to SailPoint Developer (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "695fd2537ebc25398eb5af3d",
     "title": "Software Engineer, Threat Infrastructure and Detection, AI Security",
     "company": "",
