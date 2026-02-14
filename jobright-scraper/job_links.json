@@ -13294,35 +13294,6 @@
     "applied_at": "2026-01-11T23:28:25.130119Z"
   },
   {
-    "id": "695fcaa3a1bbea1d9a7a8a38",
-    "title": "Senior Software Engineer, Networking",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Networking_JR2009201-1?source=jobright&jr_id=695fcaa3a1bbea1d9a7a8a38",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T18:04:54.565Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fcaa3a1bbea1d9a7a8a38",
-      "title": "Senior Software Engineer, Networking",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Networking_JR2009201-1?source=jobright&jr_id=695fcaa3a1bbea1d9a7a8a38",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T18:04:54.464Z",
-          "message": "Applying to Senior Software Engineer, Networking (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:28:38.180454Z"
-  },
-  {
     "id": "69478030d1953b5d11c08e9d",
     "title": "C++ Software Engineer, AI Open-Source Software",
     "company": "",
