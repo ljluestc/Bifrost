@@ -12912,35 +12912,6 @@
     "system": "Oracle"
   },
   {
-    "id": "695fcffea112b402660e7707",
-    "title": "Senior Software Engineer, Robotics - Isaac Lab",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Robotics---Isaac-Lab_JR2004356?source=jobright&jr_id=695fcffea112b402660e7707",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T17:02:52.535Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fcffea112b402660e7707",
-      "title": "Senior Software Engineer, Robotics - Isaac Lab",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Robotics---Isaac-Lab_JR2004356?source=jobright&jr_id=695fcffea112b402660e7707",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T17:02:52.467Z",
-          "message": "Applying to Senior Software Engineer, Robotics - Isaac Lab (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:26:35.288318Z"
-  },
-  {
     "id": "6943381cdd382f5f56692d53",
     "title": "SailPoint Developer",
     "company": "",
