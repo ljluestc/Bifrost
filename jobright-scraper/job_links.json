@@ -12350,35 +12350,6 @@
     "system": "Workday"
   },
   {
-    "id": "695fda507ebc25398eb5b3f7",
-    "title": "Senior Site Reliability Engineer, BCM - DGX Cloud",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Site-Reliability-Engineer--BCM---DGX-Cloud_JR2006695?source=jobright&jr_id=695fda507ebc25398eb5b3f7",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T16:54:04.041Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fda507ebc25398eb5b3f7",
-      "title": "Senior Site Reliability Engineer, BCM - DGX Cloud",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Site-Reliability-Engineer--BCM---DGX-Cloud_JR2006695?source=jobright&jr_id=695fda507ebc25398eb5b3f7",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T16:54:04.031Z",
-          "message": "Applying to Senior Site Reliability Engineer, BCM - DGX Cloud (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:23:33.861057Z"
-  },
-  {
     "id": "695fc8bfa1bbea1d9a7a88d7",
     "title": "Senior Backend Software Engineer",
     "company": "",
@@ -21253,35 +21224,6 @@
       "screenshotPath": ""
     },
     "system": "Workday"
-  },
-  {
-    "id": "690007ade0c73b3a111a1946",
-    "title": "Senior Site Reliability Engineer, BCM - DGX Cloud",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/nvidiaexternalcareersite/job/US-CA-Santa-Clara/Senior-Site-Reliability-Engineer--BCM---DGX-Cloud_JR2006695?jr_id=690007ade0c73b3a111a1946",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T21:31:35.203Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "690007ade0c73b3a111a1946",
-      "title": "Senior Site Reliability Engineer, BCM - DGX Cloud",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/nvidiaexternalcareersite/job/US-CA-Santa-Clara/Senior-Site-Reliability-Engineer--BCM---DGX-Cloud_JR2006695?jr_id=690007ade0c73b3a111a1946",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T21:31:35.186Z",
-          "message": "Applying to Senior Site Reliability Engineer, BCM - DGX Cloud (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:36:45.089979Z"
   },
   {
     "id": "695c3e5822c9dc0d3d541d46",
