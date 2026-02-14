@@ -12965,35 +12965,6 @@
     "system": "Generic"
   },
   {
-    "id": "695fda137ebc25398eb5b3d9",
-    "title": "Senior Software Architect",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Architect_JR1997335?source=jobright&jr_id=695fda137ebc25398eb5b3d9",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T17:03:09.293Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fda137ebc25398eb5b3d9",
-      "title": "Senior Software Architect",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Architect_JR1997335?source=jobright&jr_id=695fda137ebc25398eb5b3d9",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T17:03:08.798Z",
-          "message": "Applying to Senior Software Architect (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:26:47.345385Z"
-  },
-  {
     "id": "695fdf837ebc25398eb5b738",
     "title": "System Software Engineer, Distributed Systems",
     "company": "",
