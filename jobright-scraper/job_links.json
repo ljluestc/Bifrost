@@ -13360,34 +13360,6 @@
     "system": "LinkedIn"
   },
   {
-    "id": "68eeed2f46e5b153e5a61157",
-    "title": "Security Engineer, Infrastructure Security, Level 5",
-    "company": "",
-    "url": "https://community.workday.com/maintenance-page",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T18:05:55.691Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "68eeed2f46e5b153e5a61157",
-      "title": "Security Engineer, Infrastructure Security, Level 5",
-      "company": "",
-      "url": "https://community.workday.com/maintenance-page",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T18:05:55.661Z",
-          "message": "Applying to Security Engineer, Infrastructure Security, Level 5 (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "695fc801a112b402660e722d",
     "title": "Software Architect, Networking",
     "company": "",
