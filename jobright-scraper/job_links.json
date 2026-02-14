@@ -12740,35 +12740,6 @@
     "applied_at": "2026-01-11T23:25:43.088121Z"
   },
   {
-    "id": "695fd0b37ebc25398eb5ae20",
-    "title": "Senior Software Engineer, Datacenter Modeling",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Datacenter-Modeling_JR2006565?source=jobright&jr_id=695fd0b37ebc25398eb5ae20",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T17:02:17.385Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fd0b37ebc25398eb5ae20",
-      "title": "Senior Software Engineer, Datacenter Modeling",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Datacenter-Modeling_JR2006565?source=jobright&jr_id=695fd0b37ebc25398eb5ae20",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T17:02:17.310Z",
-          "message": "Applying to Senior Software Engineer, Datacenter Modeling (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:25:55.144193Z"
-  },
-  {
     "id": "691021dc988c2b7b4ec503b7",
     "title": "Senior Software Engineer - Media and Streaming",
     "company": "",
