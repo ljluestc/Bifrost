@@ -7,8 +7,9 @@ const config = require('./config');
 // CONFIG
 const JOBS_FILE = path.join(__dirname, 'priority_jobs_extracted.json');
 const NEW_JOBS_FILE = path.join(__dirname, 'newjobs.json');
-const APPLIED_FILE = 'applied.json';
-const APPLIED_APPEND_FILE = 'applied_append.jsonl';
+const SCRAPER_FILE = path.join(__dirname, 'job_links.json'); // Added source
+const APPLIED_FILE = 'jobs_applied.json'; // Changed source
+const APPLIED_APPEND_FILE = 'jobs_applied.json'; // Changed target
 const FAILED_FILE = 'failed-application.json';
 const DELETED_JOBS_FILE = 'deleted_jobs.json';
 const SKIPPED_JOBS_FILE = 'skipped_jobs.json';
@@ -328,6 +329,19 @@ const isExcluded = (job) => {
                     console.log(`   ✅ Added ${newJobs.length} jobs from newjobs.json`);
                 } else {
                     console.log("   ⚠️ Failed to parse newjobs.json (All strategies failed).");
+                }
+
+                // Load job_links.json (Output from Scraper)
+                if (fs.existsSync(SCRAPER_FILE)) {
+                    try {
+                        const scraperJobs = JSON.parse(fs.readFileSync(SCRAPER_FILE, 'utf8'));
+                        if (Array.isArray(scraperJobs)) {
+                            allJobs = allJobs.concat(scraperJobs);
+                            console.log(`   ✅ Added ${scraperJobs.length} jobs from job_links.json`);
+                        }
+                    } catch (e) {
+                        console.log(`   ⚠️ Failed to parse job_links.json: ${e.message}`);
+                    }
                 }
             }
 

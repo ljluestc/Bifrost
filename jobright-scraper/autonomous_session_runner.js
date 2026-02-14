@@ -8,7 +8,7 @@ const config = require('./config'); // User Configuration
 // CONFIG
 const JOBS_FILE = path.resolve('./job_links.json');
 // const NEW_JOBS_FILE = path.join(__dirname, 'newjobs.json');
-const NEW_JOBS_FILE = path.resolve('./priority_jobs_extracted.json'); // PRIORITY EXTRACTION SET
+const NEW_JOBS_FILE = path.resolve('./job_links.json'); // DIRECT TARGET: FULL LIST
 const APPLIED_FILE = 'applied.json';
 const APPLIED_APPEND_FILE = path.resolve('./jobs_applied.json');
 const FAILED_FILE = path.resolve('./failed_jobs.json');
@@ -19,13 +19,14 @@ const RECORDING_FILE = 'user_recording.jsonl';
 // const USER_DATA_DIR = path.resolve('./user_data_nvidia_sequential');
 const USER_DATA_DIR = path.resolve('./user_data_learning_session');
 const EXTENSION_PATH = path.resolve('./jobright-extension'); // Will be ignored if missing
-const WAIT_TIME_MS = 250;
-const ACTION_TIMEOUT_MS = 60 * 1000;
-const JOB_TIMEOUT_MS = 120 * 1000; // 120s (User Request)
+const WAIT_TIME_MS = 100; // Optimized for Speed
+const COOLDOWN_BETWEEN_JOBS_MS = 60 * 1000; // 60s cooldown between jobs to avoid rate limiting
+const ACTION_TIMEOUT_MS = 30 * 1000; // Fail fast
+const JOB_TIMEOUT_MS = 30 * 1000; // 30s (High Throughput)
 const OVERNIGHT_MODE = true; // Auto-Retry enabled
 const STRICT_PASSIVE_MODE = false; // ACTIVE MODE (Auto-Clicks Enabled)
 const LEARN_ONLY_MODE = true; // FULL AUTONOMY (Heuristics Enabled for Speed)
-const HIGH_THROUGHPUT_MODE = true; // 100 jobs/hr Target
+const HIGH_THROUGHPUT_MODE = true; // 500 jobs/hr Target
 
 // --- UTILS ---
 
@@ -459,6 +460,8 @@ function loadRecordings() {
                     if (window.isBotActive) return;
 
                     const target = e.target;
+                    // Skip overlay control clicks from being recorded
+                    if (target.closest && target.closest('#jobright-controls')) return;
                     const selector = getCssPath(target);
                     const simple = target.id ? `#${target.id}` : target.className ? `.${target.className.split(' ')[0]}` : selector;
 
@@ -810,26 +813,62 @@ function loadRecordings() {
             console.log(`   #${idx + 1}. ${comp.padEnd(30)}: ${count} jobs`);
         });
 
-        // Sort Valid Jobs by Company Frequency
-        // Filter for allowed ATS only (Workday + SmartRecruiters) per user request
+        // Filter for allowed ATS (Workday + SmartRecruiters + Greenhouse)
         const allowedJobs = validJobs.filter(j => {
             const u = normalizeUrl(j.url).toLowerCase();
             return (u.includes('workday') || u.includes('myworkdayjobs')) ||
-                (u.includes('smartrecruiters') || u.includes('smartr'));
+                (u.includes('smartrecruiters') || u.includes('smartr')) ||
+                (u.includes('greenhouse'));
         });
 
-        allowedJobs.sort((a, b) => {
+        // TOP TECH COMPANIES BY MARKET CAP — prioritized first (at least 20 in top of queue)
+        const topTechCompanies = [
+            'apple', 'microsoft', 'nvidia', 'alphabet', 'google', 'amazon', 'meta',
+            'broadcom', 'tesla', 'taiwan semiconductor', 'tsmc', 'oracle', 'samsung',
+            'salesforce', 'adobe', 'amd', 'intel', 'qualcomm', 'cisco', 'netflix',
+            'ibm', 'servicenow', 'intuit', 'uber', 'airbnb', 'snap', 'pinterest',
+            'snowflake', 'datadog', 'crowdstrike', 'palo alto networks', 'cloudflare',
+            'stripe', 'databricks', 'openai', 'anthropic', 'figma', 'canva',
+            'docusign', 'twilio', 'okta', 'zscaler', 'mongodb', 'elastic',
+            'confluent', 'hashicorp', 'gitlab', 'github', 'vercel', 'supabase',
+            'linkedin', 'spotify', 'discord', 'slack', 'zoom', 'dropbox',
+            'robinhood', 'coinbase', 'plaid', 'square', 'block', 'paypal',
+            'doordash', 'instacart', 'lyft', 'waymo', 'cruise', 'xai',
+            'nbcuniversal', 'disney', 'warner', 'paramount', 'sony',
+            'dell', 'hp', 'hpe', 'vmware', 'red hat', 'sap', 'workday',
+            'splunk', 'arista', 'juniper', 'fortinet', 'cadence', 'synopsys',
+            'marvell', 'lam research', 'applied materials', 'klarna', 'hcltech',
+            'clickup', 'notion', 'linear', 'retool', 'verily', 'waymo'
+        ];
+
+        const isTopTech = (job) => {
+            const c = (job.company || '').toLowerCase();
+            const u = (job.url || '').toLowerCase();
+            return topTechCompanies.some(tc => c.includes(tc) || u.includes(tc.replace(/\s+/g, '')));
+        };
+
+        // Separate into tiers: top tech first, then by company frequency
+        const tier1 = allowedJobs.filter(j => isTopTech(j));
+        const tier2 = allowedJobs.filter(j => !isTopTech(j));
+
+        tier1.sort((a, b) => {
             const countA = companyCounts[a.company || 'Unknown'] || 0;
             const countB = companyCounts[b.company || 'Unknown'] || 0;
-            return countB - countA; // Descending
+            return countB - countA;
+        });
+        tier2.sort((a, b) => {
+            const countA = companyCounts[a.company || 'Unknown'] || 0;
+            const countB = companyCounts[b.company || 'Unknown'] || 0;
+            return countB - countA;
         });
 
-        console.log(`\n   🎯 Prioritized Pool (Workday + SR sorted by Volume): ${allowedJobs.length}`);
+        const activeQueue = [...tier1, ...tier2];
 
-        const activeQueue = allowedJobs;
+        console.log(`\n   🏢 Top Tech Companies in Queue: ${tier1.length} jobs (prioritized first)`);
+        console.log(`   🎯 Total Pool (WD + SR + GH): ${activeQueue.length}`);
 
         if (activeQueue.length === 0) {
-            console.log("   ⚠️ No Workday/SmartRecruiters jobs found.");
+            console.log("   ⚠️ No allowed ATS jobs found.");
         }
 
         console.log(`   ----------------------------------------`);
@@ -1039,9 +1078,8 @@ function loadRecordings() {
                             if (job.url.includes('ashbyhq') && !isPassiveMode) await fillAshbyForm(page);
                         }
 
-                        // HIGH PRIORITY: ASHBY NATIVE HEURISTICS (User Request)
-                        // BLOCKED IN LEARNING MODE TO ALLOW MANUAL APPLY
-                        if (!bestCandidate && !LEARN_ONLY_MODE && !isPassiveMode && page.url().includes('ashbyhq')) {
+                        // HIGH PRIORITY: ASHBY NATIVE HEURISTICS
+                        if (!bestCandidate && !isPassiveMode && page.url().includes('ashbyhq')) {
                             // NATIVE FORM FILLING (Replaces Extension)
                             await fillAshbyForm(page);
                             const ashbySelectors = [
@@ -1073,8 +1111,7 @@ function loadRecordings() {
                         }
 
                         // HIGH PRIORITY: GREENHOUSE HEURISTICS
-                        // HIGH PRIORITY: GREENHOUSE HEURISTICS
-                        if (!bestCandidate && !LEARN_ONLY_MODE && !isPassiveMode && page.url().includes('greenhouse')) {
+                        if (!bestCandidate && !isPassiveMode && page.url().includes('greenhouse')) {
                             await fillGreenhouseForm(page);
                             const ghSelectors = [
                                 '#submit_app',
@@ -1097,7 +1134,7 @@ function loadRecordings() {
                         }
 
                         // HIGH PRIORITY: WORKDAY HEURISTICS
-                        if (!bestCandidate && !LEARN_ONLY_MODE && !isPassiveMode && page.url().includes('myworkdayjobs')) {
+                        if (!bestCandidate && !isPassiveMode && page.url().includes('myworkdayjobs')) {
                             await fillWorkdayForm(page);
                             const wdSelectors = [
                                 '[data-automation-id="bottom-navigation-next-button"]',
@@ -1119,7 +1156,7 @@ function loadRecordings() {
                         }
 
                         // HIGH PRIORITY: SMARTRECRUITERS HEURISTICS
-                        if (!bestCandidate && !LEARN_ONLY_MODE && !isPassiveMode && page.url().includes('smartrecruiters')) {
+                        if (!bestCandidate && !isPassiveMode && page.url().includes('smartrecruiters')) {
                             await fillSmartRecruitersForm(page);
                             const srSelectors = [
                                 'button:has-text("Next")',
@@ -1148,9 +1185,17 @@ function loadRecordings() {
                             for (const selObj of usefulSelectors) {
                                 const sel = selObj.selector;
                                 const expectedText = selObj.text;
-                                const lowerSel = sel.toLowerCase();
-                                if (['svg', 'path', 'body', 'html', 'div', 'span', 'p', 'form', 'label', 'section', 'header', 'footer'].includes(lowerSel)) continue;
+                                const lowerSel = sel.toLowerCase().trim();
+                                if (['svg', 'path', 'body', 'html', 'html > body', 'div', 'span', 'p', 'form', 'label', 'section', 'header', 'footer'].includes(lowerSel)) continue;
+                                // Skip broad/generic selectors that match page-level elements
+                                const selParts = lowerSel.split(/\s*>\s*/).map(s => s.trim().replace(/:.*/, ''));
+                                const genericTags = new Set(['html', 'body', 'div', 'span', 'p', 'form', 'section', 'header', 'footer', 'main', 'article', 'nav']);
+                                if (selParts.every(part => genericTags.has(part))) continue;
+                                // Skip page-root ID selectors that match entire page content
+                                const rootIds = ['#root', '#app', '#__next', '#main', '#content', '#maincontent'];
+                                if (rootIds.some(rid => lowerSel === rid || lowerSel === 'div' + rid || lowerSel.startsWith(rid + ' >') || lowerSel.startsWith('div' + rid + ' >'))) continue;
                                 if (lowerSel.includes('react-aria')) continue;
+                                if (lowerSel.includes('jobright')) continue;
 
                                 try {
                                     const el = page.locator(sel).first();
@@ -1238,6 +1283,15 @@ function loadRecordings() {
                     } // END if (!isPassiveMode)
 
                     if (bestCandidate) {
+                        // OVERLAY GUARD: Never click elements inside #jobright-controls
+                        try {
+                            const isOverlay = await bestCandidate.evaluate(el => !!el.closest('#jobright-controls'));
+                            if (isOverlay) {
+                                bestCandidate = null;
+                                continue;
+                            }
+                        } catch (e) { }
+
                         let txt = "";
                         try {
                             txt = (await bestCandidate.innerText()).trim().substring(0, 50);
@@ -1401,6 +1455,21 @@ function loadRecordings() {
                 }
             } catch (e) {
                 console.error("   ! Failed to save status:", e.message);
+            }
+
+            // COOLDOWN: Wait between jobs to avoid rate limiting / bot detection
+            if (i < jobs.length - 1) {
+                console.log(`   ⏳ Cooling down ${COOLDOWN_BETWEEN_JOBS_MS / 1000}s before next job...`);
+                const cooldownStart = Date.now();
+                while (Date.now() - cooldownStart < COOLDOWN_BETWEEN_JOBS_MS) {
+                    const remaining = Math.ceil((COOLDOWN_BETWEEN_JOBS_MS - (Date.now() - cooldownStart)) / 1000);
+                    if (remaining % 15 === 0) console.log(`   ⏳ ${remaining}s remaining...`);
+                    const signaled = await waitForActionOrSkip(page, 1000);
+                    if (signaled) {
+                        console.log(`   ⚡ Signal received during cooldown, skipping wait.`);
+                        break;
+                    }
+                }
             }
         }
     }

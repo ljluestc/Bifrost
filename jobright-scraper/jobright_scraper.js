@@ -4,6 +4,7 @@ const path = require('path');
 
 const USER_DATA_DIR = path.resolve('./user_data_scraper_fresh_v4');
 const OUTPUT_FILE = path.resolve('./job_links.json');
+const DELETED_JOBS_FILE = path.resolve('./deleted_jobs.json');
 const LOG_FILE = path.resolve('./scraper.log');
 const TARGET_JOBS_PER_HOUR = 500;
 const STALL_TIMEOUT_MS = 45000; // 45 seconds
@@ -55,7 +56,8 @@ function getNextKeyword(current) {
 function sanitizeUrl(url) {
     try {
         if (!url) return null;
-        if (url.includes('jobright.ai')) return null; 
+        if (url.includes('jobright.ai')) return null;
+        if (url.startsWith('about:')) return null;
 
         const u = new URL(url);
         // Remove common tracking params
@@ -89,6 +91,30 @@ async function run() {
         } catch (e) { }
     }
 
+    // Load deleted jobs to avoid re-scraping
+    if (fs.existsSync(DELETED_JOBS_FILE)) {
+        try {
+            const deleted = fs.readFileSync(DELETED_JOBS_FILE, 'utf8')
+                .trim()
+                .split('\n')
+                .map(line => {
+                    try { return JSON.parse(line); } catch (e) { return null; }
+                })
+                .filter(x => x && x.url);
+
+            let deletedCount = 0;
+            deleted.forEach(d => {
+                if (d.url && !seenUrls.has(d.url)) {
+                    seenUrls.add(d.url);
+                    deletedCount++;
+                }
+            });
+            log(`ℹ️  Loaded ${deletedCount} deleted jobs (skipping). Total seen: ${seenUrls.size}`);
+        } catch (e) {
+            log(`⚠️ Error loading deleted jobs: ${e.message}`);
+        }
+    }
+
     const context = await chromium.launchPersistentContext(path.resolve('./user_data_scraper_fresh_v4'), {
         headless: true,
         channel: 'chrome',
@@ -101,8 +127,12 @@ async function run() {
     // resolutionPage removed in favor of per-job pages
 
     let totalNew = 0;
+    let startTime = Date.now();
     let lastActivityTime = Date.now();
     let currentKeyword = "RECOMMENDED"; // Start with Recommended
+    let consecutiveFailures = 0;
+    const WIN_THRESHOLD = 500; // Force keyword switch after 500 successes too? No, keep going if winning.
+    const FAIL_THRESHOLD = 10; // Force switch after 10 consecutive resolution failures
 
     // Parse args
     const args = process.argv.slice(2);
@@ -158,7 +188,7 @@ async function run() {
                     let newCount = 0;
 
                     // Concurrency Control
-                    const CONCURRENCY_LIMIT = 15; // Increased for performance
+                    const CONCURRENCY_LIMIT = 1; // Debug Mode: Single Thread
                     const results = [];
 
                     // Helper to process a single job
@@ -173,8 +203,16 @@ async function run() {
                                 // Block resources for speed
                                 await tempPage.route('**/*.{png,jpg,jpeg,gif,svg,css,font,woff,woff2}', route => route.abort());
 
+                                // Capture navigation requests
+                                let potentialRedirects = [];
+                                tempPage.on('request', req => {
+                                    if (req.isNavigationRequest() && !req.url().includes('jobright.ai')) {
+                                        potentialRedirects.push(req.url());
+                                    }
+                                });
+
                                 log(`   🔎 Resolving Internal Link: ${rawUrl}`);
-                                await tempPage.goto(rawUrl, { waitUntil: 'domcontentloaded', timeout: 10000 }); // Reduced timeout further
+                                await tempPage.goto(rawUrl, { waitUntil: 'domcontentloaded', timeout: 15000 }); // Increased timeout to 15s
 
                                 // Strategy 1: Check if we got redirected
                                 let currentUrl = tempPage.url();
@@ -186,42 +224,104 @@ async function run() {
                                     await tempPage.waitForTimeout(1000); // Reduced wait
 
                                     // Try to find the "Apply" button
-                                    const applyBtn = await tempPage.$('a[href*="greenhouse"], a[href*="lever"], a[href*="workday"], a[href*="ashby"], a[href*="recruit"], a[class*="apply"]');
-                                    if (applyBtn) {
-                                        const href = await applyBtn.getAttribute('href');
-                                        if (href && !href.includes('jobright.ai')) {
-                                            rawUrl = href;
-                                            log(`      ↳ Found Apply Link: ${rawUrl}`);
-                                        }
+                                    // Enhanced selectors based on logs
+                                    let applyBtn = await tempPage.$('a[href*="greenhouse"], a[href*="lever"], a[href*="workday"], a[href*="ashby"], a[href*="recruit"], a[class*="apply"], a:has-text("Apply on Employer Site"), button:has-text("Apply on Employer Site"), a:has-text("APPLY NOW"), button:has-text("APPLY NOW")');
+
+                                    if (!applyBtn) {
+                                        // Fallback: Try to find *any* link with "Apply" text if the specific ones failed
+                                        applyBtn = await tempPage.$('a:has-text("Apply")');
                                     }
 
-                                    // If still internal, click Apply
-                                    if (rawUrl.includes('jobright.ai')) {
-                                        const btn = await tempPage.$('button:has-text("Apply")');
-                                        if (btn) {
-                                            log("      ↳ Clicking Apply Button...");
+                                    if (applyBtn) {
+                                        const href = await applyBtn.getAttribute('href');
+                                        log(`      👀 Debug: Found Apply Button with href: ${href}`);
+                                        if (href) {
+                                            // Fix: Resolve relative URLs
                                             try {
-                                                const [newPage] = await Promise.all([
-                                                    context.waitForEvent('page', { timeout: 5000 }).catch(() => null),
-                                                    btn.click()
-                                                ]);
+                                                const absoluteUrl = new URL(href, tempPage.url()).href;
+                                                log(`      👀 Debug: Resolved Absolute URL: ${absoluteUrl}`);
+
+                                                if (!absoluteUrl.includes('jobright.ai') && !absoluteUrl.includes('job-list/')) {
+                                                    rawUrl = absoluteUrl;
+                                                    log(`      ↳ Found Apply Link: ${rawUrl}`);
+                                                } else {
+                                                    log(`      ⚠️ Ignored Internal Apply Link: ${absoluteUrl}`);
+                                                    // If it's internal, maybe we need to click it?
+                                                    // Re-enabling click logic below might be needed if this happens often.
+                                                }
+                                            } catch (e) { log(`      ⚠️ URL Resolution Error: ${e.message}`); }
+                                        } else {
+                                            log("      ⚠️ Found button but no href attribute.");
+                                            // If it's a button without href, we might need to click it.
+                                            // We will let the disabled click logic below handle it if I re-enable it, 
+                                            // or just accept we can't get it without interaction.
+                                        }
+                                    } else {
+                                        log("      👀 Debug: No Apply Button found matching selector.");
+                                        try {
+                                            const bodyText = await tempPage.innerText('body');
+                                            log(`      👀 Debug: Page Text Sample: ${bodyText.substring(0, 200).replace(/\n/g, ' ')}...`);
+                                        } catch (e) { log(`      ⚠️ Debug: Failed to get page text: ${e.message}`); }
+                                    }
+
+                                    // If we found a button but no href (or if we didn't find a link at all), we must click.
+                                    // The debug output showed <button>APPLY NOW</button> with no href.
+
+                                    if (!rawUrl || rawUrl.includes('jobright.ai')) {
+                                        // Check for expired button explicitly
+                                        const expiredBtn = await tempPage.$('button[id*="expired-job"]');
+                                        if (expiredBtn) {
+                                            log(`      ⚠️ Job appears to be expired (Found expired button ID). Skipping.`);
+                                            return null;
+                                        }
+
+                                        // Prioritize the "APPLY NOW" button we found, or find it again if we didn't assign it to applyBtn correctly
+                                        const clickTarget = applyBtn || await tempPage.$('button:has-text("APPLY NOW"), button[class*="applyButton"]');
+
+                                        if (clickTarget) {
+                                            log("      ↳ Clicking Apply Button to resolve URL...");
+                                            try {
+                                                // Setup popup listener BEFORE clicking
+                                                const popupPromise = context.waitForEvent('page', { timeout: 10000 }).catch(() => null);
+
+                                                // Click handling - sometimes opens new tab, sometimes redirects current
+                                                await clickTarget.click({ timeout: 5000 });
+
+                                                const newPage = await popupPromise;
 
                                                 if (newPage) {
                                                     await newPage.waitForLoadState();
+                                                    log(`      ↳ Popup Redirected to: ${newPage.url()}`);
                                                     rawUrl = newPage.url();
-                                                    log(`      ↳ Popup Redirected to: ${rawUrl}`);
                                                     await newPage.close();
                                                 } else {
-                                                    await tempPage.waitForTimeout(2000);
-                                                    currentUrl = tempPage.url();
-                                                    if (!currentUrl.includes('jobright.ai')) {
-                                                        rawUrl = currentUrl;
+                                                    // No popup, maybe current page redirected?
+                                                    await tempPage.waitForTimeout(3000);
+                                                    const postClickUrl = tempPage.url();
+                                                    log(`      👀 Debug: Post-Click URL: ${postClickUrl}`);
+                                                    if (!postClickUrl.includes('jobright.ai')) {
+                                                        rawUrl = postClickUrl;
                                                         log(`      ↳ Click Redirected to: ${rawUrl}`);
+                                                    } else {
+                                                        log(`      ⚠️ Post-Click URL still internal: ${postClickUrl}`);
+
+                                                        // Check if we captured any navigation requests
+                                                        if (potentialRedirects.length > 0) {
+                                                            log(`      👀 Debug: Captured ${potentialRedirects.length} redirect requests.`);
+                                                            // Take the last one? Or first? usually the first external one.
+                                                            const validRedirect = potentialRedirects.find(u => !u.includes('jobright.ai') && !u.includes('google') && !u.includes('facebook'));
+                                                            if (validRedirect) {
+                                                                rawUrl = validRedirect;
+                                                                log(`      ↳ Found network redirect to: ${rawUrl}`);
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             } catch (clickErr) {
-                                                // Ignore click errors
+                                                log(`      ⚠️ Click failed: ${clickErr.message}`);
                                             }
+                                        } else {
+                                            log("      ⚠️ Could not find a button to click.");
                                         }
                                     }
                                 }
@@ -252,12 +352,20 @@ async function run() {
 
                     // Execute in chunks
                     for (let i = 0; i < jobs.length; i += CONCURRENCY_LIMIT) {
+                        // Check for excessive failures
+                        if (consecutiveFailures >= FAIL_THRESHOLD) {
+                            log(`🚨 Too many consecutive failures (${consecutiveFailures}). Forcing keyword rotation.`);
+                            lastActivityTime = 0; // Trigger rotation in main loop
+                            break;
+                        }
+
                         const chunk = jobs.slice(i, i + CONCURRENCY_LIMIT);
                         const chunkResults = await Promise.all(chunk.map(job => processJob(job)));
 
                         // Save valid results immediately
                         const validJobs = chunkResults.filter(j => j !== null);
                         if (validJobs.length > 0) {
+                            consecutiveFailures = 0; // Reset on success
                             try {
                                 const currentData = fs.existsSync(OUTPUT_FILE) ? JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8')) : [];
                                 currentData.push(...validJobs);
@@ -265,9 +373,17 @@ async function run() {
                                 validJobs.forEach(j => log(`   💾 Saved: ${j.title} (${j.url})`));
                                 newCount += validJobs.length;
                                 totalNew += validJobs.length;
+
+                                // Throughput Logging
+                                const elapsedMin = (Date.now() - startTime) / 60000;
+                                const rate = totalNew / (elapsedMin || 1);
+                                log(`   📊 Throughput: ${totalNew} jobs in ${elapsedMin.toFixed(1)}m (~${Math.round(rate * 60)} jobs/hr)`);
                             } catch (saveErr) {
                                 log(`   ⚠️ Save failed: ${saveErr.message}`);
                             }
+                        } else {
+                            // All failed in this chunk
+                            consecutiveFailures += chunk.length;
                         }
                     }
 
@@ -301,6 +417,7 @@ async function run() {
             const timeSinceLastActivity = Date.now() - lastActivityTime;
             if (timeSinceLastActivity > STALL_TIMEOUT_MS) {
                 currentKeyword = getNextKeyword(currentKeyword);
+                consecutiveFailures = 0; // Reset failure count on rotation
                 log(`⚡ Stall. Switching to: "${currentKeyword}"...`);
                 try {
                     let switchUrl = `https://jobright.ai/jobs?query=${encodeURIComponent(currentKeyword)}`;
@@ -317,7 +434,8 @@ async function run() {
                 continue;
             }
 
-            // 1. CLICK APPLY BUTTONS (Autonomous Mode)
+            // 1. CLICK APPLY BUTTONS (Autonomous Mode) - DISABLED for stability
+            /*
             try {
                 // Find all "Apply with Autofill" buttons
                 const applyBtns = await page.$$('button.index_apply-button__kp79C:has-text("Apply with Autofill")');
@@ -341,6 +459,7 @@ async function run() {
                 log(`   ⚠️ Clicker Error: ${e.message}`);
                 if (e.message.includes('closed') || e.message.includes('Target page')) throw e;
             }
+            */
 
             // 2. SCROLL (Targeting the specific scrollable container found in observation)
             try {
