@@ -14618,34 +14618,6 @@
     "system": "Generic"
   },
   {
-    "id": "695fd5e7a112b402660e7b7a",
-    "title": "Staff FinOps Engineer",
-    "company": "",
-    "url": "https://sailpoint.wd1.myworkdayjobs.com/sailpoint/job/Remote-Georgia-USA/Staff-FinOps-Analyst_R011928?jr_id=695fd5e7a112b402660e7b7a",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T18:42:43.179Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fd5e7a112b402660e7b7a",
-      "title": "Staff FinOps Engineer",
-      "company": "",
-      "url": "https://sailpoint.wd1.myworkdayjobs.com/sailpoint/job/Remote-Georgia-USA/Staff-FinOps-Analyst_R011928?jr_id=695fd5e7a112b402660e7b7a",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T18:42:43.166Z",
-          "message": "Applying to Staff FinOps Engineer (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "690c75f84a1b456627b18901",
     "title": "Senior Software Architect - Deep Learning and HPC Communications",
     "company": "",
