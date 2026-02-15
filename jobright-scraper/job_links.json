@@ -17404,34 +17404,6 @@
     "system": "Generic"
   },
   {
-    "id": "695fd608a1bbea1d9a7a9155",
-    "title": "Senior Software Engineer, Full Stack - Shopping (Remote)",
-    "company": "",
-    "url": "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/US-Remote/Senior-Software-Engineer--Full-Stack---Shopping--Remote-_R233122-1?jr_id=695fd608a1bbea1d9a7a9155",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T20:15:05.953Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fd608a1bbea1d9a7a9155",
-      "title": "Senior Software Engineer, Full Stack - Shopping (Remote)",
-      "company": "",
-      "url": "https://capitalone.wd12.myworkdayjobs.com/Capital_One/job/US-Remote/Senior-Software-Engineer--Full-Stack---Shopping--Remote-_R233122-1?jr_id=695fd608a1bbea1d9a7a9155",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:15:05.928Z",
-          "message": "Applying to Senior Software Engineer, Full Stack - Shopping (Remote) (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "695fca6ea1bbea1d9a7a8a12",
     "title": "Senior Backend Compiler Engineer - GPU",
     "company": "",
