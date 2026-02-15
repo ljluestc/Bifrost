@@ -20289,34 +20289,6 @@
     "applicationSystem": "Generic"
   },
   {
-    "id": "6944820c50bbaf765056931c",
-    "title": "Software Engineering PMTS, Compute Infrastructure",
-    "company": "",
-    "url": "https://salesforce.wd12.myworkdayjobs.com/Slack/job/California---San-Francisco/Staff-Software-Engineer--Search-Infrastructure_JR312680?source=LinkedIn_Slack_Jobs&jr_id=6944820c50bbaf765056931c",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T21:30:43.497Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "6944820c50bbaf765056931c",
-      "title": "Software Engineering PMTS, Compute Infrastructure",
-      "company": "",
-      "url": "https://salesforce.wd12.myworkdayjobs.com/Slack/job/California---San-Francisco/Staff-Software-Engineer--Search-Infrastructure_JR312680?source=LinkedIn_Slack_Jobs&jr_id=6944820c50bbaf765056931c",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T21:30:43.483Z",
-          "message": "Applying to Software Engineering PMTS, Compute Infrastructure (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "693c537eaa598a08c3ed4130",
     "title": "Platform Engineer IV (EKS & Observability)",
     "company": "",
