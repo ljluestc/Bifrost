@@ -18899,34 +18899,6 @@
     "system": "Generic"
   },
   {
-    "id": "695ee204a112b402660d9cbb",
-    "title": "Specialty Software Engineer",
-    "company": "",
-    "url": "https://sentara.wd1.myworkdayjobs.com/scs/job/Virginia-Beach-VA/Specialty-Software-Engineer_JR-91542-1?jr_id=695ee204a112b402660d9cbb",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T20:51:20.619Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695ee204a112b402660d9cbb",
-      "title": "Specialty Software Engineer",
-      "company": "",
-      "url": "https://sentara.wd1.myworkdayjobs.com/scs/job/Virginia-Beach-VA/Specialty-Software-Engineer_JR-91542-1?jr_id=695ee204a112b402660d9cbb",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:51:20.602Z",
-          "message": "Applying to Specialty Software Engineer (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "695edaaaa112b402660d91e4",
     "title": "Senior Software Engineer",
     "company": "",
