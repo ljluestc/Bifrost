@@ -17047,35 +17047,6 @@
     "applied_at": "2026-01-11T23:33:33.095098Z"
   },
   {
-    "id": "695fddd27ebc25398eb5b5c7",
-    "title": "Senior Software Engineer, MathDx – cuBLASDx and cuSolverDx",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--MathDx---cuBLASDx-and-cuSolverDx_JR2003815?source=jobright&jr_id=695fddd27ebc25398eb5b5c7",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T20:10:56.976Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fddd27ebc25398eb5b5c7",
-      "title": "Senior Software Engineer, MathDx – cuBLASDx and cuSolverDx",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--MathDx---cuBLASDx-and-cuSolverDx_JR2003815?source=jobright&jr_id=695fddd27ebc25398eb5b5c7",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:10:56.935Z",
-          "message": "Applying to Senior Software Engineer, MathDx – cuBLASDx and cuSolverDx (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:34:10.246668Z"
-  },
-  {
     "id": "69433120dd382f5f56692212",
     "title": "Staff Software Engineer, Workshop Management",
     "company": "",
