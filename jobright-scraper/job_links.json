@@ -17976,34 +17976,6 @@
     "system": "Generic"
   },
   {
-    "id": "694dda8829655e4dd657a062",
-    "title": "Senior Engineer - Java [Hybrid]",
-    "company": "",
-    "url": "https://geico.wd1.myworkdayjobs.com/External/job/Chevy-Chase-MD/Senior-Engineer_R0059559?source=LinkedIn&jr_id=694dda8829655e4dd657a062",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T20:18:59.225Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "694dda8829655e4dd657a062",
-      "title": "Senior Engineer - Java [Hybrid]",
-      "company": "",
-      "url": "https://geico.wd1.myworkdayjobs.com/External/job/Chevy-Chase-MD/Senior-Engineer_R0059559?source=LinkedIn&jr_id=694dda8829655e4dd657a062",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:18:59.211Z",
-          "message": "Applying to Senior Engineer - Java [Hybrid] (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "695eebad0badca5763af6968",
     "title": "Engineer III - Cloud - Cloud Runtime Protection (Remote)",
     "company": "",
