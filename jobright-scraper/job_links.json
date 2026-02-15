@@ -14729,34 +14729,6 @@
     "system": "Generic"
   },
   {
-    "id": "695ee52508ab990f282a3626",
-    "title": "Forward Deployed Engineer, AI Inference (vLLM and Kubernetes)",
-    "company": "",
-    "url": "https://redhat.wd5.myworkdayjobs.com/jobs/job/Boston/Forward-Deployed-Engineer--AI-Inference--vLLM-and-Kubernetes-_R-052950-1?%26%3Fmode=job&%26iis=Job%2BBoard&%26iisn=LinkedIn%2BPosting&source=LinkedIn&jr_id=695ee52508ab990f282a3626",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T18:57:25.138Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695ee52508ab990f282a3626",
-      "title": "Forward Deployed Engineer, AI Inference (vLLM and Kubernetes)",
-      "company": "",
-      "url": "https://redhat.wd5.myworkdayjobs.com/jobs/job/Boston/Forward-Deployed-Engineer--AI-Inference--vLLM-and-Kubernetes-_R-052950-1?%26%3Fmode=job&%26iis=Job%2BBoard&%26iisn=LinkedIn%2BPosting&source=LinkedIn&jr_id=695ee52508ab990f282a3626",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T18:57:25.121Z",
-          "message": "Applying to Forward Deployed Engineer, AI Inference (vLLM and Kubernetes) (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "6942f94450bbaf765054cbc1",
     "title": "Software Engineer, Google Ads, Auction Mechanisms",
     "company": "",
