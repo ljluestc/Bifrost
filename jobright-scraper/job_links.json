@@ -19058,34 +19058,6 @@
     "system": "Generic"
   },
   {
-    "id": "692e98c0ef4b48533d140934",
-    "title": "Backend Software Engineer",
-    "company": "",
-    "url": "https://gevernova.wd5.myworkdayjobs.com/Vernova_ExternalSite/job/Remote/Backend-Software-Engineer_R5021446-2?jr_id=692e98c0ef4b48533d140934",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T20:54:37.410Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "692e98c0ef4b48533d140934",
-      "title": "Backend Software Engineer",
-      "company": "",
-      "url": "https://gevernova.wd5.myworkdayjobs.com/Vernova_ExternalSite/job/Remote/Backend-Software-Engineer_R5021446-2?jr_id=692e98c0ef4b48533d140934",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:54:37.398Z",
-          "message": "Applying to Backend Software Engineer (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "695eed16a112b402660daa4c",
     "title": "Senior Service Engineer IS - ServiceNow",
     "company": "",
