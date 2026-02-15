@@ -20854,35 +20854,6 @@
     "system": "Workday"
   },
   {
-    "id": "68f8537ca628d10664e81c18",
-    "title": "Senior Compiler Engineer - HPC",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-OR-Hillsboro/Senior-Compiler-Engineer---HPC_JR2006396?source=jobright&jr_id=68f8537ca628d10664e81c18",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T21:48:52.181Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "68f8537ca628d10664e81c18",
-      "title": "Senior Compiler Engineer - HPC",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-OR-Hillsboro/Senior-Compiler-Engineer---HPC_JR2006396?source=jobright&jr_id=68f8537ca628d10664e81c18",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T21:48:52.166Z",
-          "message": "Applying to Senior Compiler Engineer - HPC (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:37:13.206776Z"
-  },
-  {
     "id": "695c887b9a87b95a9397dda5",
     "title": "Staff Software Development Engineer",
     "company": "",
