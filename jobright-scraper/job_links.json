@@ -17129,35 +17129,6 @@
     "applied_at": "2026-01-11T23:34:38.411706Z"
   },
   {
-    "id": "695fd37ba112b402660e7982",
-    "title": "Senior Software Engineer - Data Center System Bringup",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer---Data-Center-System-Bringup_JR1993516?source=jobright&jr_id=695fd37ba112b402660e7982",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T20:11:16.074Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fd37ba112b402660e7982",
-      "title": "Senior Software Engineer - Data Center System Bringup",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer---Data-Center-System-Bringup_JR1993516?source=jobright&jr_id=695fd37ba112b402660e7982",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:11:16.006Z",
-          "message": "Applying to Senior Software Engineer - Data Center System Bringup (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:34:55.471892Z"
-  },
-  {
     "id": "695fd703a112b402660e7c17",
     "title": "Senior Software Engineer, Real-Time AI and Rendering - Holoscan SDK",
     "company": "",
