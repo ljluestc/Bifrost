@@ -16912,34 +16912,6 @@
     "system": "Generic"
   },
   {
-    "id": "695fe0187ebc25398eb5b78a",
-    "title": "Senior Software Engineer",
-    "company": "",
-    "url": "https://kla.wd1.myworkdayjobs.com/Search/job/Milpitas-CA/Senior-Software-Engineer_2533411?bid=370&source=jobright&jr_id=695fe0187ebc25398eb5b78a",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T20:05:16.495Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fe0187ebc25398eb5b78a",
-      "title": "Senior Software Engineer",
-      "company": "",
-      "url": "https://kla.wd1.myworkdayjobs.com/Search/job/Milpitas-CA/Senior-Software-Engineer_2533411?bid=370&source=jobright&jr_id=695fe0187ebc25398eb5b78a",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:05:16.480Z",
-          "message": "Applying to Senior Software Engineer (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "6925bce2d47de4798ecd1435",
     "title": "Operations Engineer III - Senior TechOps Engineer",
     "company": "",
