@@ -19598,35 +19598,6 @@
     "system": "LinkedIn"
   },
   {
-    "id": "68cd6672b2a74e1837ed6926",
-    "title": "Senior GPU and HPC Infrastructure Engineer - DGX Cloud",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Machine-Learning-Infrastructure-Engineer---DGX-Cloud_JR1999889?source=jobright&jr_id=68cd6672b2a74e1837ed6926",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T21:10:53.907Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "68cd6672b2a74e1837ed6926",
-      "title": "Senior GPU and HPC Infrastructure Engineer - DGX Cloud",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Machine-Learning-Infrastructure-Engineer---DGX-Cloud_JR1999889?source=jobright&jr_id=68cd6672b2a74e1837ed6926",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T21:10:53.891Z",
-          "message": "Applying to Senior GPU and HPC Infrastructure Engineer - DGX Cloud (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:36:30.019587Z"
-  },
-  {
     "id": "69164dc79c388539cbdf9ac0",
     "title": "Staff Site Reliability Engineer (Mobile)",
     "company": "",
