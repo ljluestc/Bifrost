@@ -18710,35 +18710,6 @@
     "system": "Generic"
   },
   {
-    "id": "69423890bdcf884a5ade065b",
-    "title": "System Software Engineer - AI and Robotics",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/System-Software-Engineer----AI-and-Robotics_JR2010166?source=jobright&jr_id=69423890bdcf884a5ade065b",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T20:46:44.301Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "69423890bdcf884a5ade065b",
-      "title": "System Software Engineer - AI and Robotics",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/System-Software-Engineer----AI-and-Robotics_JR2010166?source=jobright&jr_id=69423890bdcf884a5ade065b",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:46:44.276Z",
-          "message": "Applying to System Software Engineer - AI and Robotics (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:36:10.953893Z"
-  },
-  {
     "id": "69031245ff462851fefe89c4",
     "title": "Software Developer - Cloud (Remote-Mid Azure)",
     "company": "",
