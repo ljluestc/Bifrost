@@ -14888,34 +14888,6 @@
     "system": "Generic"
   },
   {
-    "id": "695ebca60badca5763af3222",
-    "title": "Engineer II - .Net",
-    "company": "",
-    "url": "https://geico.wd1.myworkdayjobs.com/External/job/Chevy-Chase-MD/Engineer-II---Net_R0061515-1?jr_id=695ebca60badca5763af3222",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T19:03:27.465Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695ebca60badca5763af3222",
-      "title": "Engineer II - .Net",
-      "company": "",
-      "url": "https://geico.wd1.myworkdayjobs.com/External/job/Chevy-Chase-MD/Engineer-II---Net_R0061515-1?jr_id=695ebca60badca5763af3222",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T19:03:27.451Z",
-          "message": "Applying to Engineer II - .Net (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
     "id": "6926240327bf2f41a2c43b89",
     "title": "Lead ServiceNow Developer",
     "company": "",
