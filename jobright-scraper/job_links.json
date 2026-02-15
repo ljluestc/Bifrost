@@ -16672,35 +16672,6 @@
     "system": "Generic"
   },
   {
-    "id": "695fd28c7ebc25398eb5af6a",
-    "title": "Senior Software Engineer, Perception - Autonomous Vehicles",
-    "company": "",
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Perception---Autonomous-Vehicles_JR2008276?source=jobright&jr_id=695fd28c7ebc25398eb5af6a",
-    "ats": "Workday",
-    "status": "Failed/LoadError",
-    "timestamp": "2026-01-10T20:04:50.889Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "695fd28c7ebc25398eb5af6a",
-      "title": "Senior Software Engineer, Perception - Autonomous Vehicles",
-      "company": "",
-      "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Senior-Software-Engineer--Perception---Autonomous-Vehicles_JR2008276?source=jobright&jr_id=695fd28c7ebc25398eb5af6a",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T20:04:50.871Z",
-          "message": "Applying to Senior Software Engineer, Perception - Autonomous Vehicles (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday",
-    "applied_at": "2026-01-11T23:33:15.991995Z"
-  },
-  {
     "id": "695fac08a1bbea1d9a7a758d",
     "title": "Software Engineering Technical Lead, Go (Cilium)",
     "company": "",
