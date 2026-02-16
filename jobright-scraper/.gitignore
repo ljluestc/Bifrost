@@ -10,3 +10,10 @@ fix_json.js
 repair_json.js
 test_*.js
 failed-application.json
+
+# Scraper artifacts
+timeout_*.html
+timeout_*.png
+error_*.html
+error_*.png
+worker_*.pid

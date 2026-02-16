@@ -1,68 +1,61 @@
 const fs = require('fs');
 
-const JOBS_FILE = 'job_links.json';
-const APPLIED_FILE = 'applied.json';
-const APPLIED_APPEND_FILE = 'applied_append.jsonl';
-const FAILED_FILE = 'failed-application.json';
-const DELETED_JOBS_FILE = 'deleted_jobs.json';
-const SKIPPED_JOBS_FILE = 'skipped_jobs.json';
+const JOBS_SOURCE = 'newjobs.json';
+const HISTORY_FILES = ['jobs_applied.json', 'applied.json'];
 
-const normalizeUrl = (u) => (u || '').split('?')[0].replace(/\/$/, '');
+console.log('--- Debugging Filters ---');
 
-let appliedUrls = new Set();
-let debugStats = { jobs: 0, applied: 0, skipped: 0, deleted: 0, failed: 0 };
+// 1. Load Jobs
+console.log(`Reading ${JOBS_SOURCE}...`);
+const allJobs = JSON.parse(fs.readFileSync(JOBS_SOURCE, 'utf8'));
+console.log(`Total jobs loaded: ${allJobs.length}`);
 
-try {
-    const jobs = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf8'));
-    debugStats.jobs = jobs.length;
-    console.log(`Total Jobs: ${jobs.length}`);
+// 2. Mock History (or load real)
+function normalizeUrl(u) {
+    if (!u) return '';
+    u = u.trim();
+    if (u.includes('boards.greenhouse.io') && u.includes('token=')) return u;
+    return u.split('?')[0].replace(/\/$/, '');
+}
 
-    // Applied Append
-    if (fs.existsSync(APPLIED_APPEND_FILE)) {
-        fs.readFileSync(APPLIED_APPEND_FILE, 'utf8').split('\n').filter(l => l.trim()).forEach(l => {
-            try {
-                const u = JSON.parse(l).url;
-                appliedUrls.add(normalizeUrl(u));
-                debugStats.applied++;
-            } catch (e) { }
-        });
-    }
-
-    // Skipped
-    if (fs.existsSync(SKIPPED_JOBS_FILE)) {
-        const content = fs.readFileSync(SKIPPED_JOBS_FILE, 'utf8');
-        content.split('\n').filter(l => l.trim()).forEach(l => {
-            try {
-                const u = JSON.parse(l).url;
-                appliedUrls.add(normalizeUrl(u));
-                debugStats.skipped++;
-            } catch (e) { }
-        });
-    }
-
-    // Deleted
-    if (fs.existsSync(DELETED_JOBS_FILE)) {
-        const content = fs.readFileSync(DELETED_JOBS_FILE, 'utf8');
-        content.split('\n').filter(l => l.trim()).forEach(l => {
-            try {
-                const u = JSON.parse(l).url;
-                appliedUrls.add(normalizeUrl(u));
-                debugStats.deleted++;
-            } catch (e) { }
-        });
-    }
-
-    console.log(`Unique Filter URLs: ${appliedUrls.size}`);
-    console.log("Stats:", debugStats);
-
-    // Check first 5 matches
-    console.log("\nSample Filtered Jobs:");
-    let sampleCount = 0;
-    jobs.forEach(j => {
-        if (appliedUrls.has(normalizeUrl(j.url)) && sampleCount < 5) {
-            console.log(`FILTERED: ${j.url} -> ${normalizeUrl(j.url)}`);
-            sampleCount++;
-        }
+const history = new Set();
+// Load basic history if available
+if (fs.existsSync('jobs_applied.json')) {
+    const lines = fs.readFileSync('jobs_applied.json', 'utf8').split('\n');
+    lines.forEach(l => {
+        try {
+            if (l.trim()) {
+                const j = JSON.parse(l);
+                if (j.url) history.add(normalizeUrl(j.url));
+            }
+        } catch (e) { }
     });
+}
+console.log(`History size: ${history.size}`);
 
-} catch (e) { console.error(e); }
+// 3. Filter Analysis
+let hasUrl = 0;
+let isPlatform = 0;
+let notInHistory = 0;
+
+allJobs.forEach(job => {
+    if (job.url) {
+        hasUrl++;
+        if (job.url.includes('greenhouse.io') || job.url.includes('smartrecruiters.com')) {
+            isPlatform++;
+            if (!history.has(normalizeUrl(job.url))) {
+                notInHistory++;
+            }
+        }
+    }
+});
+
+console.log(`Jobs with URL: ${hasUrl}`);
+console.log(`Jobs on GH/SR: ${isPlatform}`);
+console.log(`Jobs NOT in History (Pending): ${notInHistory}`);
+
+if (notInHistory < 100) {
+    console.log("Dumping sample pending jobs:");
+    allJobs.filter(j => j.url && (j.url.includes('greenhouse.io') || j.url.includes('smartrecruiters.com')) && !history.has(j.url))
+        .slice(0, 5).forEach(j => console.log(j.url));
+}

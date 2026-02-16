@@ -3,7 +3,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 // CONFIG
-const JOBS_SOURCE = 'clean_jobs.json';
+const JOBS_SOURCE = 'job_links.json';
 const WORKER_SCRIPT = 'unified_worker.js';
 const TOTAL_WORKERS = 5; // Target: 5 workers (approx 100 jobs/hr each -> 500/hr)
 const CHUNK_PREFIX = 'jobs_chunk_';
@@ -106,16 +106,26 @@ function loadHistory() {
     const history = loadHistory();
     console.log(`ℹ️  History size: ${history.size} jobs applied.`);
 
+    let droppedPlatform = 0;
+    let droppedHistory = 0;
     const pendingJobs = allJobs.filter(j => {
         if (!j.url) return false;
         const u = normalizeUrl(j.url);
         // Platform check (optional, but worker does it too)
         const isGh = j.url.includes('greenhouse.io') || j.url.includes('boards.greenhouse.io');
         const isSr = j.url.includes('smartrecruiters.com');
-        if (!isGh && !isSr) return false;
+        if (!isGh && !isSr) {
+            droppedPlatform++;
+            return false;
+        }
 
-        return !history.has(u);
+        if (history.has(u)) {
+            droppedHistory++;
+            return false;
+        }
+        return true;
     });
+    console.log(`Debug stats: Total=${allJobs.length}, DroppedPlatform=${droppedPlatform}, DroppedHistory=${droppedHistory}`);
 
     console.log(`ℹ️  Pending Jobs: ${pendingJobs.length}`);
 
@@ -152,10 +162,27 @@ function loadHistory() {
 
         console.log(`   🚀 Spawning Worker ${workerId}...`);
 
+        // Check if worker is already running
+        const pidFile = `worker_${workerId}.pid`;
+        if (fs.existsSync(pidFile)) {
+            try {
+                const pid = parseInt(fs.readFileSync(pidFile, 'utf8'));
+                // Check if process exists
+                process.kill(pid, 0);
+                console.log(`   ⚠️ Worker ${workerId} is already running (PID ${pid}). Skipping spawn.`);
+                workers.push({ id: workerId, pid: pid });
+                continue;
+            } catch (e) {
+                // Process not found or file invalid, proceed
+                fs.unlinkSync(pidFile);
+            }
+        }
+
         const child = spawn('node', [WORKER_SCRIPT, `--worker=${workerId}`, `--chunk=${chunkFilename}`], {
             detached: true,
             stdio: ['ignore', logFile, logFile]
         });
+        fs.writeFileSync(pidFile, child.pid.toString());
 
         workers.push({ id: workerId, pid: child.pid });
 

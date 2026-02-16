@@ -20,6 +20,12 @@ if (content.match(/\}\s*\{/)) {
     content = content.replace(/\}\s*\{/g, '}, {');
 }
 
+// 2.0 Replace Object followed by Array: } [ -> },
+if (content.match(/\}\s*\[/)) {
+    console.log("Found '} [' pattern (Object followed by Array). Fixing...");
+    content = content.replace(/\}\s*\[/g, '},');
+}
+
 // 2. Ensure it ends with ]
 content = content.trim();
 if (!content.endsWith(']')) {

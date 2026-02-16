@@ -1,6 +1,6 @@
 module github.com/brokercap/Bifrost
 
-go 1.21.8
+go 1.24.0
 
 require (
 	github.com/ClickHouse/clickhouse-go v1.4.3
@@ -27,6 +27,8 @@ require (
 require (
 	cloud.google.com/go v0.26.0 // indirect
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/SAP/go-hdb v1.14.18
+	github.com/SAP/go-hdb/driver v1.14.18
 	github.com/Shopify/toxiproxy v2.1.4+incompatible // indirect
 	github.com/aws/aws-sdk-go v1.38.3 // indirect
 	github.com/bkaradzic/go-lz4 v1.0.0 // indirect
@@ -130,7 +132,7 @@ require (
 	golang.org/x/net v0.0.0-20210427231257-85d9c07bbe3a // indirect
 	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be // indirect
 	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/text v0.33.0 // indirect
 	golang.org/x/tools v0.0.0-20201224043029-2b0845dc783e // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/appengine v1.1.0 // indirect

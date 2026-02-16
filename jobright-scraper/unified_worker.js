@@ -22,7 +22,7 @@ if (!chunkFile) {
 // CONFIG
 const JOBS_FILE = path.resolve(chunkFile); // Use chunk file as source
 const APPLIED_FILE = 'applied.json';
-const APPLIED_APPEND_FILE = `applied_append_worker_${workerId}.jsonl`; // Per-worker append file to avoid contention
+const APPLIED_APPEND_FILE = 'jobs_applied.json'; // All workers append to single file
 const FAILED_FILE = `failed_worker_${workerId}.json`; // Per-worker failed file
 const DELETED_JOBS_FILE = 'deleted_jobs.json';
 const SKIPPED_JOBS_FILE = 'skipped_jobs.json';
@@ -47,13 +47,79 @@ async function fillGreenhouseForm(page) {
             const fileInput = page.locator('input[type="file"][data-source="attach"]');
             if (await fileInput.count() > 0) await fileInput.setInputFiles(config.RESUME_PATH, t).catch(() => { });
         }
-    } catch (e) { console.log("   (Greenhouse fill error: " + e.message + ")"); }
+
+        // --- GENERIC FILLER FOR CUSTOM FIELDS ---
+        await page.waitForTimeout(1000); // Wait for dynamic fields
+
+        // 1. Selects (Dropdowns)
+        const selects = page.locator('select');
+        const selectCount = await selects.count();
+        for (let i = 0; i < selectCount; i++) {
+            const sel = selects.nth(i);
+            if (await sel.isVisible()) {
+                const val = await sel.inputValue();
+                if (!val) {
+                    // Try to select the index 1 (usually first non-empty option)
+                    await sel.selectOption({ index: 1 }).catch(() => {
+                        // Fallback: index 2 if 1 is disabled/placeholder
+                        sel.selectOption({ index: 2 }).catch(() => { });
+                    });
+                }
+            }
+        }
+
+        // 2. Checkboxes (Consents, etc.) - Aggressively check required or "accept" type boxes
+        // Greenhouse specific: div.field label input[type="checkbox"]
+        const ellipses = page.locator('input[type="checkbox"]');
+        const checkCount = await ellipses.count();
+        for (let i = 0; i < checkCount; i++) {
+            const box = ellipses.nth(i);
+            if (await box.isVisible() && !(await box.isChecked())) {
+                await box.click({ force: true }).catch(() => { });
+            }
+        }
+
+        // 3. Radio Buttons (Select "Yes" or "No" heuristics?)
+        // Safer to just select the first one if none selected?
+        // Or leave blank if not required? Many are required.
+        // Let's try to find required radio groups. 
+        // For now, skip to avoid "Yes" on "Do you need visa?" if we don't know.
+        // User said "auto approve everything", implying "Yes" to "Are you authorized?" etc.
+
+        // 4. Text Inputs (Custom)
+        const inputs = page.locator('input[type="text"]');
+        const inputCount = await inputs.count();
+        for (let i = 0; i < inputCount; i++) {
+            const inp = inputs.nth(i);
+            if (await inp.isVisible()) {
+                const val = await inp.inputValue();
+                // If empty and looks like a custom field (not the standard ones we filled)
+                const id = await inp.getAttribute('id') || '';
+                if (!val && !id.includes('first_name') && !id.includes('last_name') && !id.includes('email') && !id.includes('phone')) {
+                    await inp.fill('N/A').catch(() => { });
+                }
+            }
+        }
+
+        // 5. Textareas
+        const textareas = page.locator('textarea');
+        const taCount = await textareas.count();
+        for (let i = 0; i < taCount; i++) {
+            const ta = textareas.nth(i);
+            if (await ta.isVisible()) {
+                if (!(await ta.inputValue())) await ta.fill('N/A').catch(() => { });
+            }
+        }
+
+    } catch (e) {
+        console.error(`   ❌ Greenhouse fill error: ${e.message}`);
+    }
 }
 
 async function fillSmartRecruitersForm(page) {
     console.log("   📝 Auto-Filling SmartRecruiters Form...");
-    const t = { timeout: 2000 };
     try {
+        const t = { timeout: 2000 };
         // SmartRecruiters (Standard Single-Page or Multi-Step)
         if (config.FULL_NAME) {
             await page.locator('#first-name-input').fill(config.FULL_NAME.split(' ')[0], t).catch(() => { });
@@ -70,7 +136,58 @@ async function fillSmartRecruitersForm(page) {
                 await fileInput.setInputFiles(config.RESUME_PATH, t).catch(() => { });
             }
         }
-    } catch (e) { console.log("   (SmartRecruiters fill error: " + e.message + ")"); }
+
+        // --- GENERIC FILLER FOR SMARTRECRUITERS CUSTOM FIELDS ---
+        await page.waitForTimeout(1000);
+
+        // 1. Selects
+        const selects = page.locator('select');
+        const selectCount = await selects.count();
+        for (let i = 0; i < selectCount; i++) {
+            const sel = selects.nth(i);
+            if (await sel.isVisible() && !(await sel.inputValue())) {
+                await sel.selectOption({ index: 1 }).catch(() => {
+                    sel.selectOption({ index: 2 }).catch(() => { });
+                });
+            }
+        }
+
+        // 2. Checkboxes (Consent)
+        const boxes = page.locator('input[type="checkbox"]');
+        const boxCount = await boxes.count();
+        for (let i = 0; i < boxCount; i++) {
+            const box = boxes.nth(i);
+            if (await box.isVisible() && !(await box.isChecked())) {
+                await box.click({ force: true }).catch(() => { });
+            }
+        }
+
+        // 3. Text inputs (Custom)
+        const inputs = page.locator('input[type="text"]');
+        const inpCount = await inputs.count();
+        for (let i = 0; i < inpCount; i++) {
+            const inp = inputs.nth(i);
+            if (await inp.isVisible() && !(await inp.inputValue())) {
+                const id = await inp.getAttribute('id') || '';
+                // Avoid overwriting name/email/phone/linkedin if they were already filled or failed
+                if (!id.includes('first-name') && !id.includes('last-name') && !id.includes('email') && !id.includes('phone') && !id.includes('linkedin')) {
+                    await inp.fill('N/A').catch(() => { });
+                }
+            }
+        }
+
+        // 4. Textareas
+        const areas = page.locator('textarea');
+        const aCount = await areas.count();
+        for (let i = 0; i < aCount; i++) {
+            const a = areas.nth(i);
+            if (await a.isVisible() && !(await a.inputValue())) {
+                await a.fill('N/A').catch(() => { });
+            }
+        }
+    } catch (e) {
+        console.error(`   ❌ SmartRecruiters fill error: ${e.message}`);
+    }
 }
 
 async function waitForActionOrSkip(page, durationMs) {
@@ -138,6 +255,13 @@ const isExcluded = (job) => {
             if (fs.existsSync(APPLIED_APPEND_FILE)) fs.readFileSync(APPLIED_APPEND_FILE, 'utf8').split('\n').filter(l => l.trim()).forEach(l => {
                 try { appliedUrls.add(normalizeUrl(JSON.parse(l).url)); } catch (e) { }
             });
+            // Also load per-worker append files from previous runs
+            for (let i = 1; i <= 10; i++) {
+                const f = `applied_append_worker_${i}.jsonl`;
+                if (fs.existsSync(f)) fs.readFileSync(f, 'utf8').split('\n').filter(l => l.trim()).forEach(l => {
+                    try { appliedUrls.add(normalizeUrl(JSON.parse(l).url)); } catch (e) { }
+                });
+            }
             if (fs.existsSync(DELETED_JOBS_FILE)) fs.readFileSync(DELETED_JOBS_FILE, 'utf8').split('\n').filter(l => l.trim()).forEach(l => {
                 try { const u = normalizeUrl(JSON.parse(l).url); appliedUrls.add(u); deletedUrls.add(u); } catch (e) { }
             });
@@ -149,8 +273,9 @@ const isExcluded = (job) => {
     loadHistory();
 
     // Browser
-    console.log(`[Worker ${workerId}] 🚀 Launching Browser (Headless: true)...`);
-    const b = await chromium.launchPersistentContext(USER_DATA_DIR, {
+    const TEMP_USER_DATA_DIR = USER_DATA_DIR + '_' + Date.now();
+    console.log(`[Worker ${workerId}] 🚀 Launching Browser (Headless: true) in ${TEMP_USER_DATA_DIR}...`);
+    const b = await chromium.launchPersistentContext(TEMP_USER_DATA_DIR, {
         headless: true,
         channel: 'chrome',
         args: [
@@ -278,6 +403,7 @@ const isExcluded = (job) => {
                 if (isSr) await fillSmartRecruitersForm(page);
 
                 // Auto-Click (Heuristic)
+                let clickedSubmit = false;
                 const AUTO_CLICK = true;
                 if (AUTO_CLICK) {
                     const selectors = [
@@ -305,6 +431,7 @@ const isExcluded = (job) => {
                                 } else {
                                     await el.click();
                                     console.log("   🖱️  Clicked Submit/Apply!");
+                                    clickedSubmit = true;
                                 }
                             }
                         } catch (e) { }
@@ -331,22 +458,27 @@ const isExcluded = (job) => {
                 if (global.SKIP_SIGNAL) status = "SKIPPED_USER";
                 if (global.DELETE_SIGNAL) status = "DELETED";
                 if (Date.now() - startTime >= JOB_TIMEOUT_MS) {
-                    status = "TIMEOUT";
-                    await page.screenshot({ path: `timeout_${workerId}_${Date.now()}.png` }).catch(() => { });
-                    console.log(`   📸 Screenshot saved: timeout_${workerId}_${Date.now()}.png`);
-                    const bodyText = await page.innerText('body').catch(() => "");
-                    console.log(`   📄 Body len: ${bodyText.length}. Preview: ${bodyText.substring(0, 200)}...`);
+                    status = (clickedSubmit) ? "TIMEOUT_APPLIED" : "TIMEOUT";
+                    const ts = Date.now();
+                    await page.screenshot({ path: `timeout_${workerId}_${ts}.png` }).catch(() => { });
+                    const html = await page.content().catch(() => "");
+                    fs.writeFileSync(`timeout_${workerId}_${ts}.html`, html);
+                    console.log(`   📸 Saved screenshot & HTML for timeout: timeout_${workerId}_${ts}`);
                 }
 
             } catch (e) {
                 console.log(`   ❌ Error: ${e.message}`);
                 err = e.message;
+                const ts = Date.now();
+                await page.screenshot({ path: `error_${workerId}_${ts}.png` }).catch(() => { });
+                const html = await page.content().catch(() => "");
+                fs.writeFileSync(`error_${workerId}_${ts}.html`, html);
             }
 
             // Save
             console.log(`   📝 Saving Status: ${status}`);
             const entry = { url: job.url, status, timestamp: new Date().toISOString(), error: err };
-            if (status === "APPLIED") {
+            if (status === "APPLIED" || status === "TIMEOUT_APPLIED") {
                 fs.appendFileSync(APPLIED_APPEND_FILE, JSON.stringify(entry) + '\n');
                 appliedUrls.add(normalizeUrl(job.url));
             } else if (status === "SKIPPED_USER") {
@@ -356,6 +488,13 @@ const isExcluded = (job) => {
                 fs.appendFileSync(DELETED_JOBS_FILE, JSON.stringify(entry) + '\n');
                 appliedUrls.add(normalizeUrl(job.url));
             } else {
+                // If FAILED (crash/error), save as SKIPPED_ERROR so we don't retry locally or after restart
+                // But only if it's a browser crash or critical error? 
+                // Let's safe-guard ALL errors for now to keep throughput high.
+                const skipEntry = { ...entry, status: 'SKIPPED_ERROR' };
+                fs.appendFileSync(SKIPPED_JOBS_FILE, JSON.stringify(skipEntry) + '\n');
+                appliedUrls.add(normalizeUrl(job.url));
+                // Also write to failed file just in case we want to debug later
                 fs.appendFileSync(FAILED_FILE, JSON.stringify(entry) + '\n');
             }
         }
