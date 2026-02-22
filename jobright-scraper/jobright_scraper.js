@@ -83,13 +83,27 @@ async function run() {
 
     // Load existing
     let seenUrls = new Set();
-    if (fs.existsSync(OUTPUT_FILE)) {
-        try {
-            const current = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8'));
-            current.forEach(j => seenUrls.add(j.url));
-            log(`ℹ️  Loaded ${seenUrls.size} existing jobs.`);
-        } catch (e) { }
-    }
+    const existingFiles = [OUTPUT_FILE, 'newjobs.json']; // Check both buffer and main backlog
+    existingFiles.forEach(file => {
+        if (fs.existsSync(file)) {
+            try {
+                const content = fs.readFileSync(file, 'utf8');
+                let loaded = [];
+                try {
+                    loaded = JSON.parse(content);
+                } catch (e) {
+                    // Try line-based
+                    loaded = content.split('\n').filter(l => l.trim()).map(l => {
+                        try { return JSON.parse(l); } catch (e) { return null; }
+                    }).filter(j => j);
+                }
+                loaded.forEach(j => {
+                    if (j && j.url) seenUrls.add(j.url);
+                });
+                log(`ℹ️  Loaded ${loaded.length} existing jobs from ${path.basename(file)}.`);
+            } catch (e) { log(`⚠️ Error loading ${path.basename(file)}: ${e.message}`); }
+        }
+    });
 
     // Load deleted jobs to avoid re-scraping
     if (fs.existsSync(DELETED_JOBS_FILE)) {

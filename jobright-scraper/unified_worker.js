@@ -27,7 +27,7 @@ const FAILED_FILE = `failed_worker_${workerId}.json`; // Per-worker failed file
 const DELETED_JOBS_FILE = 'deleted_jobs.json';
 const SKIPPED_JOBS_FILE = 'skipped_jobs.json';
 const USER_DATA_DIR = path.resolve(`./user_data_worker_${workerId}`); // Unique Profile
-const JOB_TIMEOUT_MS = 45 * 1000; // 45 seconds
+const JOB_TIMEOUT_MS = 20 * 1000; // 20s — faster throughput, if no submit in 20s we move on
 
 // --- UTILS ---
 async function fillGreenhouseForm(page) {
@@ -190,6 +190,88 @@ async function fillSmartRecruitersForm(page) {
     }
 }
 
+async function fillLeverForm(page) {
+    console.log("   📝 Auto-Filling Lever Form...");
+    const t = { timeout: 2000 };
+    try {
+        if (config.FULL_NAME) await page.locator('input[name="name"]').fill(config.FULL_NAME, t).catch(() => { });
+        if (config.EMAIL) await page.locator('input[name="email"]').fill(config.EMAIL, t).catch(() => { });
+        if (config.PHONE) await page.locator('input[name="phone"]').fill(config.PHONE, t).catch(() => { });
+        if (config.LINKEDIN_URL) await page.locator('input[name="urls[LinkedIn]"]').fill(config.LINKEDIN_URL, t).catch(() => { });
+        if (config.RESUME_PATH && fs.existsSync(config.RESUME_PATH)) {
+            const fileInput = page.locator('input[type="file"]');
+            if (await fileInput.count() > 0) await fileInput.setInputFiles(config.RESUME_PATH, t).catch(() => { });
+        }
+        // Generic selects
+        await page.waitForTimeout(1000);
+        const selects = page.locator('select');
+        const selectCount = await selects.count();
+        for (let i = 0; i < selectCount; i++) {
+            const sel = selects.nth(i);
+            if (await sel.isVisible() && !(await sel.inputValue())) {
+                await sel.selectOption({ index: 1 }).catch(() => { sel.selectOption({ index: 2 }).catch(() => { }); });
+            }
+        }
+    } catch (e) {
+        console.error(`   ❌ Lever fill error: ${e.message}`);
+    }
+}
+
+async function fillWorkdayForm(page) {
+    console.log("   📝 Auto-Filling Workday Form...");
+    const t = { timeout: 2000 };
+    try {
+        if (config.EMAIL) await page.locator('input[data-automation-id="email"], input[type="email"]').first().fill(config.EMAIL, t).catch(() => { });
+        if (config.FULL_NAME) {
+            await page.locator('input[data-automation-id="legalNameSection_firstName"]').fill(config.FULL_NAME.split(' ')[0], t).catch(() => { });
+            await page.locator('input[data-automation-id="legalNameSection_lastName"]').fill(config.FULL_NAME.split(' ').slice(1).join(' '), t).catch(() => { });
+        }
+        if (config.PHONE) await page.locator('input[data-automation-id="phone-number"], input[data-automation-id="phonePart1"]').first().fill(config.PHONE, t).catch(() => { });
+        // Resume
+        if (config.RESUME_PATH && fs.existsSync(config.RESUME_PATH)) {
+            const fileInput = page.locator('input[type="file"][data-automation-id="file-upload-input-ref"], input[type="file"]').first();
+            if (await fileInput.count() > 0) await fileInput.setInputFiles(config.RESUME_PATH, t).catch(() => { });
+        }
+    } catch (e) {
+        console.error(`   ❌ Workday fill error: ${e.message}`);
+    }
+}
+
+async function fillAshbyForm(page) {
+    console.log("   📝 Auto-Filling Ashby Form...");
+    const t = { timeout: 2000 };
+    try {
+        if (config.FULL_NAME) await page.locator('input[name="name"], input[id*="name"], input[aria-label*="Name"]').first().fill(config.FULL_NAME, t).catch(() => { });
+        if (config.EMAIL) await page.locator('input[name="email"], input[id*="email"], input[type="email"]').first().fill(config.EMAIL, t).catch(() => { });
+        if (config.PHONE) await page.locator('input[name="phone"], input[id*="phone"], input[type="tel"]').first().fill(config.PHONE, t).catch(() => { });
+        if (config.LINKEDIN_URL) await page.locator('input[name*="linkedin"], input[id*="linkedin"]').first().fill(config.LINKEDIN_URL, t).catch(() => { });
+        if (config.RESUME_PATH && fs.existsSync(config.RESUME_PATH)) {
+            const fileInput = page.locator('input[type="file"]');
+            if (await fileInput.count() > 0) await fileInput.setInputFiles(config.RESUME_PATH, t).catch(() => { });
+        }
+        // Generic selects + checkboxes
+        await page.waitForTimeout(1000);
+        const selects = page.locator('select');
+        const selectCount = await selects.count();
+        for (let i = 0; i < selectCount; i++) {
+            const sel = selects.nth(i);
+            if (await sel.isVisible() && !(await sel.inputValue())) {
+                await sel.selectOption({ index: 1 }).catch(() => { sel.selectOption({ index: 2 }).catch(() => { }); });
+            }
+        }
+        const boxes = page.locator('input[type="checkbox"]');
+        const boxCount = await boxes.count();
+        for (let i = 0; i < boxCount; i++) {
+            const box = boxes.nth(i);
+            if (await box.isVisible() && !(await box.isChecked())) {
+                await box.click({ force: true }).catch(() => { });
+            }
+        }
+    } catch (e) {
+        console.error(`   ❌ Ashby fill error: ${e.message}`);
+    }
+}
+
 async function waitForActionOrSkip(page, durationMs) {
     const steps = durationMs / 50;
     for (let i = 0; i < steps; i++) {
@@ -347,6 +429,10 @@ const isExcluded = (job) => {
         }
 
         // Filter: Greenhouse OR SmartRecruiters AND Not Excluded
+        let droppedPlatform = 0;
+        let droppedExcluded = 0;
+        let droppedApplied = 0;
+
         const queue = allJobs
             .filter(j => {
                 if (!j.url) return false;
@@ -354,18 +440,32 @@ const isExcluded = (job) => {
                 // 1. Platform Check
                 const isGh = j.url.includes('greenhouse.io') || j.url.includes('boards.greenhouse.io');
                 const isSr = j.url.includes('smartrecruiters.com');
+                const isLever = j.url.includes('lever.co');
+                const isAshby = j.url.includes('ashbyhq');
+                const isWorkday = j.url.includes('myworkdayjobs.com') || j.url.includes('workday.com');
 
-                if (!isGh && !isSr) return false;
+                if (!isGh && !isSr && !isLever && !isAshby && !isWorkday) {
+                    droppedPlatform++;
+                    return false;
+                }
 
                 // 2. Exclusion Check
-                if (isExcluded(j)) return false;
+                if (isExcluded(j)) {
+                    droppedExcluded++;
+                    return false;
+                }
 
                 // 3. Applied Check
                 const u = normalizeUrl(j.url);
-                return !appliedUrls.has(u);
+                if (appliedUrls.has(u)) {
+                    droppedApplied++;
+                    return false;
+                }
+                return true;
             });
 
         console.log(`\n[Worker ${workerId}] 📊 Queue: ${queue.length} jobs.`);
+        console.log(`[Worker ${workerId}] Debug: Total=${allJobs.length}, DroppedPlatform=${droppedPlatform}, DroppedExcluded=${droppedExcluded}, DroppedApplied=${droppedApplied}, HistorySize=${appliedUrls.size}`);
 
         if (queue.length === 0) {
             console.log(`[Worker ${workerId}] No matching jobs found. Exiting...`);
@@ -394,13 +494,31 @@ const isExcluded = (job) => {
                 // Note: InitScript handles injection, but we can do a safety check
                 await page.evaluate(CONTROLS_SCRIPT);
 
+                // --- DEAD JOB CHECK ---
+                const bodyText = await page.innerText('body').catch(() => '');
+                if (bodyText.includes("Sorry, but we can't find that page") ||
+                    bodyText.includes("Job is no longer available") ||
+                    bodyText.includes("Posting not found") ||
+                    bodyText.includes("This job is no longer accepting applications")) {
+                    console.log("   ❌ Job is expired or not found.");
+                    status = "EXPIRED";
+                    throw new Error("Job Expired");
+                }
+
+
                 // ID Platform
                 const isGh = job.url.includes('greenhouse.io');
                 const isSr = job.url.includes('smartrecruiters.com');
+                const isLever = job.url.includes('lever.co');
+                const isAshby = job.url.includes('ashbyhq');
+                const isWorkday = job.url.includes('myworkdayjobs.com') || job.url.includes('workday.com');
 
                 // Auto-fill
                 if (isGh) await fillGreenhouseForm(page);
-                if (isSr) await fillSmartRecruitersForm(page);
+                else if (isSr) await fillSmartRecruitersForm(page);
+                else if (isLever) await fillLeverForm(page);
+                else if (isAshby) await fillAshbyForm(page);
+                else if (isWorkday) await fillWorkdayForm(page);
 
                 // Auto-Click (Heuristic)
                 let clickedSubmit = false;
@@ -409,9 +527,15 @@ const isExcluded = (job) => {
                     const selectors = [
                         '#submit_app',
                         'button:has-text("Submit Application")',
+                        'button:has-text("Submit application")',
                         'button:has-text("Apply")',
+                        'button:has-text("Submit")',
                         '#st-apply',                  // SmartRecruiters
-                        'a:has-text("I\'m interested")' // SmartRecruiters often starts with this
+                        'a:has-text("I\'m interested")', // SmartRecruiters often starts with this
+                        'button:has-text("Start Application")', // Ashby
+                        'button[data-automation-id="applyButton"]', // Workday
+                        'button[data-automation-id="bottom-navigation-next-button"]', // Workday next
+                        'a:has-text("Apply")' // Generic apply link
                     ];
 
                     for (const sel of selectors) {
@@ -459,26 +583,37 @@ const isExcluded = (job) => {
                 if (global.DELETE_SIGNAL) status = "DELETED";
                 if (Date.now() - startTime >= JOB_TIMEOUT_MS) {
                     status = (clickedSubmit) ? "TIMEOUT_APPLIED" : "TIMEOUT";
-                    const ts = Date.now();
-                    await page.screenshot({ path: `timeout_${workerId}_${ts}.png` }).catch(() => { });
-                    const html = await page.content().catch(() => "");
-                    fs.writeFileSync(`timeout_${workerId}_${ts}.html`, html);
-                    console.log(`   📸 Saved screenshot & HTML for timeout: timeout_${workerId}_${ts}`);
                 }
 
             } catch (e) {
                 console.log(`   ❌ Error: ${e.message}`);
                 err = e.message;
-                const ts = Date.now();
-                await page.screenshot({ path: `error_${workerId}_${ts}.png` }).catch(() => { });
-                const html = await page.content().catch(() => "");
-                fs.writeFileSync(`error_${workerId}_${ts}.html`, html);
+
+                // Critical Browser Failure Check
+                if (e.message && (e.message.includes('Target page, context or browser has been closed') ||
+                    e.message.includes('Session closed') ||
+                    e.message.includes('browser has been disconnected'))) {
+                    console.error("🔥 CRITICAL: Browser crashed/disconnected. Exiting worker for restart.");
+                    process.exit(1);
+                }
+
+                // Screenshot on failure
+                if (status === "FAILED" || status === "TIMEOUT") {
+                    try {
+                        const shotPath = path.resolve(process.cwd(), `error_${workerId}_${Date.now()}.png`);
+                        await page.screenshot({ path: shotPath, fullPage: true });
+                        const htmlPath = path.resolve(process.cwd(), `error_${workerId}_${Date.now()}.html`);
+                        fs.writeFileSync(htmlPath, await page.content());
+                        console.log(`   📸 Saved screenshot to ${shotPath}`);
+                    } catch (ex) { console.error("Snapshot failed", ex); }
+                }
+
             }
 
             // Save
             console.log(`   📝 Saving Status: ${status}`);
             const entry = { url: job.url, status, timestamp: new Date().toISOString(), error: err };
-            if (status === "APPLIED" || status === "TIMEOUT_APPLIED") {
+            if (status === "APPLIED" || status === "TIMEOUT_APPLIED" || status === "TIMEOUT") {
                 fs.appendFileSync(APPLIED_APPEND_FILE, JSON.stringify(entry) + '\n');
                 appliedUrls.add(normalizeUrl(job.url));
             } else if (status === "SKIPPED_USER") {
@@ -488,13 +623,10 @@ const isExcluded = (job) => {
                 fs.appendFileSync(DELETED_JOBS_FILE, JSON.stringify(entry) + '\n');
                 appliedUrls.add(normalizeUrl(job.url));
             } else {
-                // If FAILED (crash/error), save as SKIPPED_ERROR so we don't retry locally or after restart
-                // But only if it's a browser crash or critical error? 
-                // Let's safe-guard ALL errors for now to keep throughput high.
+                // Write errors to separate file so they can be retried in future cycles
                 const skipEntry = { ...entry, status: 'SKIPPED_ERROR' };
-                fs.appendFileSync(SKIPPED_JOBS_FILE, JSON.stringify(skipEntry) + '\n');
-                appliedUrls.add(normalizeUrl(job.url));
-                // Also write to failed file just in case we want to debug later
+                fs.appendFileSync('skipped_errors.jsonl', JSON.stringify(skipEntry) + '\n');
+                appliedUrls.add(normalizeUrl(job.url)); // Don't retry within this session
                 fs.appendFileSync(FAILED_FILE, JSON.stringify(entry) + '\n');
             }
         }

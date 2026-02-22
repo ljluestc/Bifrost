@@ -3,7 +3,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 // CONFIG
-const JOBS_SOURCE = 'job_links.json';
+const JOBS_SOURCE = 'newjobs.json';
 const WORKER_SCRIPT = 'unified_worker.js';
 const TOTAL_WORKERS = 5; // Target: 5 workers (approx 100 jobs/hr each -> 500/hr)
 const CHUNK_PREFIX = 'jobs_chunk_';
@@ -41,80 +41,129 @@ function loadHistory() {
             });
         }
 
+        // Load permanent skips and deletes
+        ['skipped_jobs.json', 'deleted_jobs.json'].forEach(file => {
+            if (fs.existsSync(file)) {
+                fs.readFileSync(file, 'utf8').split('\n').filter(l => l.trim()).forEach(l => {
+                    try { applied.add(normalizeUrl(JSON.parse(l).url)); } catch (e) { }
+                });
+            }
+        });
+
     } catch (e) { console.error("History load error:", e.message); }
     return applied;
+}
+
+function loadJobsFromFile(filePath) {
+    if (!fs.existsSync(filePath)) return [];
+
+    let jobs = [];
+    try {
+        const raw = fs.readFileSync(filePath, 'utf8').trim();
+        try {
+            jobs = JSON.parse(raw);
+        } catch (e) {
+            console.log(`⚠️ Standard JSON parse failed for ${filePath}. Attempting repair...`);
+
+            // Strategy 1: Concatenated Arrays
+            if (raw.includes('][')) {
+                try {
+                    const fixed = raw.replace(/\]\s*\[/g, ',');
+                    jobs = JSON.parse(fixed);
+                    console.log(`   ✅ Repaired concatenated arrays in ${filePath}.`);
+                    return jobs;
+                } catch (e) { }
+            }
+
+            // Strategy 2: Missing brackets
+            if (raw.startsWith('[') && !raw.endsWith(']')) {
+                try {
+                    jobs = JSON.parse(raw + ']');
+                    console.log(`   ✅ Repaired missing closing bracket in ${filePath}.`);
+                    return jobs;
+                } catch (e) { }
+            }
+
+            // Strategy 3: NDJSON / Line-based
+            jobs = raw.split('\n')
+                .filter(l => l.trim())
+                .map(l => {
+                    try { return JSON.parse(l); } catch (e) { return null; }
+                })
+                .filter(j => j);
+
+            if (jobs.length > 0) {
+                console.log(`   ✅ Recovered ${jobs.length} jobs via line-based parsing from ${filePath}.`);
+                return jobs;
+            }
+
+            // Strategy 4: Robust "soup" parsing for really bad files (concatenated objects)
+            if (raw.includes('}{')) {
+                try {
+                    const fixed = raw.replace(/}\s*{/g, '},{');
+                    jobs = JSON.parse(`[${fixed}]`);
+                    console.log(`   ✅ Recovered ${jobs.length} jobs via object-soup parsing from ${filePath}.`);
+                    return jobs;
+                } catch (e) { }
+            }
+        }
+    } catch (e) {
+        console.error(`❌ Failed to read/parse ${filePath}:`, e.message);
+    }
+    return jobs;
 }
 
 (async () => {
     console.log("🚀 STARTING PARALLEL DISPATCHER 🚀");
 
     // 1. Load Jobs
-    if (!fs.existsSync(JOBS_SOURCE)) {
-        console.error(`❌ Source file ${JOBS_SOURCE} not found!`);
-        process.exit(1);
-    }
-
     let allJobs = [];
-    try {
-        const raw = fs.readFileSync(JOBS_SOURCE, 'utf8');
-        try {
-            allJobs = JSON.parse(raw);
-        } catch (e) {
-            console.log("⚠️ Standard JSON parse failed. Attempting repair...");
-            if (raw.includes('][')) {
-                try {
-                    const fixed = raw.replace(/\]\s*\[/g, ',');
-                    allJobs = JSON.parse(fixed);
-                    console.log("   ✅ Repaired concatenated arrays (][).");
-                } catch (e2) {
-                    // Fallback: splitting by ][ and taking all
-                    const parts = raw.split(/\]\s*\[/);
-                    allJobs = parts.map(p => {
-                        let s = p.trim();
-                        if (!s.startsWith('[')) s = '[' + s;
-                        if (!s.endsWith(']')) s = s + ']';
-                        try { return JSON.parse(s); } catch (e) { return []; }
-                    }).flat();
-                    console.log(`   ✅ Fallback split recovered ${allJobs.length} jobs.`);
-                }
-            } else {
-                // Try appending ']' if starts with '['
-                const trimmed = raw.trim();
-                if (trimmed.startsWith('[') && !trimmed.endsWith(']')) {
-                    try {
-                        allJobs = JSON.parse(trimmed + ']');
-                        console.log("   ✅ Repaired missing closing bracket.");
-                    } catch (e3) {
-                        console.log("   ⚠️ Missing bracket repair failed.");
-                    }
-                }
 
-                if (allJobs.length === 0) {
-                    // Try NDJSON/Line-based as last resort
-                    allJobs = raw.split('\n').filter(l => l.trim()).map(l => {
-                        try { return JSON.parse(l); } catch (e) { return null; }
-                    }).filter(j => j);
-                }
-            }
-        }
-    } catch (e) {
-        console.error("❌ Failed to parse source JSON:", e.message);
+    console.log(`ℹ️  Loading ${JOBS_SOURCE}...`);
+    allJobs = loadJobsFromFile(JOBS_SOURCE);
+
+    console.log(`ℹ️  Total raw jobs loaded: ${allJobs.length}`);
+
+    if (allJobs.length === 0) {
+        console.error("❌ No jobs found in any source file!");
         process.exit(1);
     }
 
-    // 2. Filter
+    // 2. Filter & Deduplicate
     const history = loadHistory();
     console.log(`ℹ️  History size: ${history.size} jobs applied.`);
 
     let droppedPlatform = 0;
     let droppedHistory = 0;
+    let droppedInvalid = 0;
+
+    const seenUrls = new Set();
+
     const pendingJobs = allJobs.filter(j => {
-        if (!j.url) return false;
+        if (!j.url) {
+            droppedInvalid++;
+            return false;
+        }
+
+        // Filter out garbage/metadata entries often found in newjobs.json
+        if (j.title === "United States" || j.company === "Full-time" || j.title && j.title.includes("hours ago")) {
+            droppedInvalid++;
+            return false;
+        }
+
         const u = normalizeUrl(j.url);
-        // Platform check (optional, but worker does it too)
+
+        // Deduplicate within current set
+        if (seenUrls.has(u)) return false;
+        seenUrls.add(u);
+
+        // Platform check
         const isGh = j.url.includes('greenhouse.io') || j.url.includes('boards.greenhouse.io');
         const isSr = j.url.includes('smartrecruiters.com');
-        if (!isGh && !isSr) {
+        const isLever = j.url.includes('lever.co');
+        const isAshby = j.url.includes('ashbyhq');
+        const isWorkday = j.url.includes('myworkdayjobs.com') || j.url.includes('workday.com');
+        if (!isGh && !isSr && !isLever && !isAshby && !isWorkday) {
             droppedPlatform++;
             return false;
         }
@@ -125,7 +174,7 @@ function loadHistory() {
         }
         return true;
     });
-    console.log(`Debug stats: Total=${allJobs.length}, DroppedPlatform=${droppedPlatform}, DroppedHistory=${droppedHistory}`);
+    console.log(`Debug stats: Total=${allJobs.length}, DroppedInvalid=${droppedInvalid}, DroppedPlatform=${droppedPlatform}, DroppedHistory=${droppedHistory}`);
 
     console.log(`ℹ️  Pending Jobs: ${pendingJobs.length}`);
 
@@ -135,9 +184,8 @@ function loadHistory() {
     }
 
     // 3. Chunk
-    // We want to distribute all pending jobs or a subset?
-    // Let's take up to 2000 jobs to process in this batch
-    const BATCH_SIZE = Math.min(pendingJobs.length, 2500);
+    // Distribute a large batch
+    const BATCH_SIZE = Math.min(pendingJobs.length, 5000); // Increased batch size
     const jobsToProcess = pendingJobs.slice(0, BATCH_SIZE);
 
     const chunkSize = Math.ceil(jobsToProcess.length / TOTAL_WORKERS);

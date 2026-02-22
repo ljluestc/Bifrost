@@ -1,20 +1,128 @@
 [
   {
-    "title": "Senior ASIC Integration and Front-end Implementation Engineer (ASIC)",
-    "company": "Palo Alto Networks",
-    "signature": "Senior ASIC Integration and Front-end Implementation Engineer (ASIC)|Palo Alto Networks",
+    "title": "Staff Software Development Engineer - Person API",
+    "company": "ID.me",
+    "signature": "Staff Software Development Engineer - Person API|ID.me",
     "priority": 0,
     "status": "Applied/Aggressive",
-    "url": "https://jobs.smartrecruiters.com/PaloAltoNetworks2/744000043578604-senior-asic-integration-and-front-end-implementation-engineer-asic-?jr_id=696621225ad3a93f82318879",
-    "timestamp": "2026-01-13T15:51:07.920Z"
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7544350003&utm_source=jobright&jr_id=692e22f64c474121999d683f",
+    "timestamp": "2026-01-14T09:48:13.800Z"
   },
   {
-    "title": "Sr Software Engineer, Tools and Platforms (Cortex)",
-    "company": "Palo Alto Networks",
-    "signature": "Sr Software Engineer, Tools and Platforms (Cortex)|Palo Alto Networks",
+    "title": "Firefox OS Integration Engineer, Mac OS Engineering",
+    "company": "Mozilla",
+    "signature": "Firefox OS Integration Engineer, Mac OS Engineering|Mozilla",
     "priority": 0,
     "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7307289&utm_source=jobright&jr_id=690d601ed046ab6061cf5b21",
-    "timestamp": "2026-01-14T06:59:19.140Z"
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7381129&utm_source=jobright&jr_id=691241c7ea9ab01b82bf0c74",
+    "timestamp": "2026-01-14T09:51:32.449Z"
+  },
+  {
+    "title": "Staff Software Engineer, Growth Platform",
+    "company": "Airbnb",
+    "signature": "Staff Software Engineer, Growth Platform|Airbnb",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=6886222&utm_source=jobright&jr_id=68d35b67f0d9af73038e1636",
+    "timestamp": "2026-01-14T09:59:18.082Z"
+  },
+  {
+    "title": "Sr. Machine Learning Firmware Engineer",
+    "company": "Samsara",
+    "signature": "Sr. Machine Learning Firmware Engineer|Samsara",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7266451&utm_source=jobright&jr_id=68d1ed73a54edb3bf3e17983",
+    "timestamp": "2026-01-14T10:24:03.291Z"
+  },
+  {
+    "title": "Senior/Staff ML Engineer, AI-Assisted Efficiency Optimization",
+    "company": "Nuro",
+    "signature": "Senior/Staff ML Engineer, AI-Assisted Efficiency Optimization|Nuro",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7366262&utm_source=jobright&jr_id=6902beba98707b2b0fe72733",
+    "timestamp": "2026-01-14T10:26:15.165Z"
+  },
+  {
+    "title": "Cloud Infrastructure Engineer II , Platform Infrastructure",
+    "company": "Abnormal AI",
+    "signature": "Cloud Infrastructure Engineer II , Platform Infrastructure|Abnormal AI",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7224694003&utm_source=jobright&jr_id=694a90ec67a69734cac5bca8",
+    "timestamp": "2026-01-14T10:29:17.451Z"
+  },
+  {
+    "title": "Senior Software Engineer - Teacher",
+    "company": "GoGuardian",
+    "signature": "Senior Software Engineer - Teacher|GoGuardian",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=4621860006&utm_source=jobright&jr_id=6930edcbef4b48533d150c94",
+    "timestamp": "2026-01-14T10:35:57.027Z"
+  },
+  {
+    "title": "Senior Software Engineer, Developer Productivity",
+    "company": "Roblox",
+    "signature": "Senior Software Engineer, Developer Productivity|Roblox",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7460022&utm_source=jobright&jr_id=693a5c6348a8ce22990e692b",
+    "timestamp": "2026-01-14T10:47:54.431Z"
+  },
+  {
+    "title": "Software Engineer, Backend",
+    "company": "Waymo",
+    "signature": "Software Engineer, Backend|Waymo",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7438627&utm_source=jobright&jr_id=6939a9ce56b68f3dc4e6feef",
+    "timestamp": "2026-01-14T10:49:49.530Z"
+  },
+  {
+    "title": "Staff Machine Learning Engineer, Runtime & Optimization",
+    "company": "Waymo",
+    "signature": "Staff Machine Learning Engineer, Runtime & Optimization|Waymo",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7099535&utm_source=jobright&jr_id=6882b8f8b54cac0f1e732619",
+    "timestamp": "2026-01-14T11:39:23.827Z"
+  },
+  {
+    "title": "Staff Data Scientist, Strategic Research & Reporting",
+    "company": "Discord",
+    "signature": "Staff Data Scientist, Strategic Research & Reporting|Discord",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8196787002&utm_source=jobright&jr_id=68e043e51852e62f007e999c",
+    "timestamp": "2026-01-14T12:04:37.014Z"
+  },
+  {
+    "title": "Staff Security Software Engineer",
+    "company": "Aurora",
+    "signature": "Staff Security Software Engineer|Aurora",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8103623002&utm_source=jobright&jr_id=6897db9e73b3a600fe8a0623",
+    "timestamp": "2026-01-14T12:11:13.853Z"
+  },
+  {
+    "title": "InfoSec - Principal Product Security Engineer (AppSec)",
+    "company": "Elastic",
+    "signature": "InfoSec - Principal Product Security Engineer (AppSec)|Elastic",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7348644&utm_source=jobright&jr_id=68f8b8ea6de2db04dc3e1acf",
+    "timestamp": "2026-01-14T12:12:03.220Z"
+  },
+  {
+    "title": "Tech Lead - Platform Monitoring Engineer",
+    "company": "Databricks",
+    "signature": "Tech Lead - Platform Monitoring Engineer|Databricks",
+    "priority": 0,
+    "status": "Applied/Aggressive",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8284218002&utm_source=jobright&jr_id=69129529c98948514c47cb6f",
+    "timestamp": "2026-01-14T12:38:49.741Z"
   }
 ]

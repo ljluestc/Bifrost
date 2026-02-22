@@ -14,12 +14,12 @@ const COOLDOWN_MS = 5 * 1000;           // 5s between jobs
 const QUEUE_POLL_MS = 30 * 1000;        // 30s poll when empty
 
 // FILES
-const JOBS_FILE = path.resolve('./job_links.json');
-const APPLIED_APPEND_FILE = path.resolve('./jobs_applied.json');
-const FAILED_FILE = path.resolve('./failed_jobs.json');
-const DELETED_JOBS_FILE = path.resolve('./deleted_jobs.json');
-const SKIPPED_JOBS_FILE = path.resolve('./skipped_jobs.json');
-const USER_DATA_DIR = path.resolve('./user_data_high_throughput');
+const JOBS_FILE = path.resolve(__dirname, 'newjobs.json');
+const APPLIED_APPEND_FILE = path.resolve(__dirname, 'jobs_applied.json');
+const FAILED_FILE = path.resolve(__dirname, 'failed_jobs.json');
+const DELETED_JOBS_FILE = path.resolve(__dirname, 'deleted_jobs.json');
+const SKIPPED_JOBS_FILE = path.resolve(__dirname, 'skipped_jobs.json');
+const USER_DATA_DIR = path.resolve(__dirname, 'user_data_high_throughput');
 
 // STATS
 let stats = { applied: 0, failed: 0, skipped: 0, startTime: Date.now() };
@@ -335,7 +335,7 @@ function saveResult(job, status, error, appliedSet) {
 
     // Launch browser
     const context = await chromium.launchPersistentContext(USER_DATA_DIR, {
-        headless: false,
+        headless: true,
         channel: 'chrome',
         args: ['--start-maximized', '--disable-blink-features=AutomationControlled', '--no-sandbox'],
         ignoreDefaultArgs: ['--enable-automation', '--disable-extensions'],
