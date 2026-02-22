@@ -4,17 +4,17 @@ const path = require('path');
 const config = require('./config');
 
 // === CONFIG ===
-// Strategy: parallel with 5s cooldown between jobs to increase throughput
-const PARALLEL_TABS = 6;
-const JOB_TIMEOUT_MS = 20 * 1000;      // 20s per job (increased slightly for stability)
+// Strategy: parallel with 15s cooldown to avoid rate limiting overnight
+const PARALLEL_TABS = 3;
+const JOB_TIMEOUT_MS = 20 * 1000;      // 20s per job
 const NAV_TIMEOUT_MS = 15 * 1000;       // 15s page load
 const FILL_TIMEOUT_MS = 2000;           // 2s per field
 const SUBMIT_WAIT_MS = 2000;            // 2s after submit click
-const COOLDOWN_MS = 5 * 1000;           // 5s between jobs
+const COOLDOWN_MS = 15 * 1000;          // 15s between batches (anti-rate-limit)
 const QUEUE_POLL_MS = 30 * 1000;        // 30s poll when empty
 
 // FILES
-const JOBS_FILE = path.resolve(__dirname, 'newjobs.json');
+const JOBS_FILE = path.resolve(__dirname, 'job_links.json');
 const APPLIED_APPEND_FILE = path.resolve(__dirname, 'jobs_applied.json');
 const FAILED_FILE = path.resolve(__dirname, 'failed_jobs.json');
 const DELETED_JOBS_FILE = path.resolve(__dirname, 'deleted_jobs.json');

@@ -1,110 +1,11 @@
 [
   {
-    "title": "Field Application Engineer – Control Systems, IIoT & Engineering",
-    "company": "Phoenix Contact USA",
-    "signature": "Field Application Engineer – Control Systems, IIoT & Engineering|Phoenix Contact USA",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7529122003&utm_source=jobright&jr_id=6917c9f915b415636717b888",
-    "timestamp": "2026-01-14T18:06:41.251Z"
-  },
-  {
-    "title": "ADAS/AD Product Engineer",
-    "company": "Lucid Motors",
-    "signature": "ADAS/AD Product Engineer|Lucid Motors",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=4675271007&utm_source=jobright&jr_id=68f060862e327452a0a4c769",
-    "timestamp": "2026-01-14T18:08:47.088Z"
-  },
-  {
-    "title": "Integration Engineer (Product Success)",
-    "company": "SpyCloud",
-    "signature": "Integration Engineer (Product Success)|SpyCloud",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7529055003&utm_source=jobright&jr_id=691cc0f722a2cb4b9bd1cd7f",
-    "timestamp": "2026-01-14T18:09:31.252Z"
-  },
-  {
-    "title": "Field Reliability Engineer",
-    "company": "Cerebras",
-    "signature": "Field Reliability Engineer|Cerebras",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7522560003&utm_source=jobright&jr_id=6939c94348a8ce22990dcd69",
-    "timestamp": "2026-01-14T18:10:29.910Z"
-  },
-  {
-    "title": "Solution Engineer",
-    "company": "E Tech Group",
-    "signature": "Solution Engineer|E Tech Group",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=5543926004&utm_source=jobright&jr_id=68cfae78dbd9fb154edea170",
-    "timestamp": "2026-01-14T18:10:57.322Z"
-  },
-  {
-    "id": "694ddcd8d4a7df7a0672c1a4",
-    "title": "Senior Engineer, Hybrid Cloud Fabric",
-    "company": "",
-    "url": "https://geico.wd1.myworkdayjobs.com/External/job/Palo-Alto-CA/Senior-Engineer--Hybrid-Cloud-Fabric_R0060021?source=LinkedIn&jr_id=694ddcd8d4a7df7a0672c1a4",
-    "ats": "Workday",
-    "status": "Skipped - Workday Start Button Not Found",
-    "timestamp": "2026-01-10T19:15:32.801Z",
-    "applicationSystem": "Workday",
-    "report": {
-      "jobId": "694ddcd8d4a7df7a0672c1a4",
-      "title": "Senior Engineer, Hybrid Cloud Fabric",
-      "company": "",
-      "url": "https://geico.wd1.myworkdayjobs.com/External/job/Palo-Alto-CA/Senior-Engineer--Hybrid-Cloud-Fabric_R0060021?source=LinkedIn&jr_id=694ddcd8d4a7df7a0672c1a4",
-      "system": "Workday",
-      "status": "Pending",
-      "steps": [
-        {
-          "time": "2026-01-10T19:15:32.784Z",
-          "message": "Applying to Senior Engineer, Hybrid Cloud Fabric (Workday)",
-          "status": "Info"
-        }
-      ],
-      "questions_needed": [],
-      "screenshotPath": ""
-    },
-    "system": "Workday"
-  },
-  {
-    "id": "6944ab7694730b739877ef6e",
-    "title": "Senior Software Engineer (Backend) - Billing Platform *Hybrid*",
-    "company": "",
-    "url": "https://geico.wd1.myworkdayjobs.com/External/job/Palo-Alto-CA/Senior-Software-Engineer--Backend----Billing-Platform--Hybrid-_R0060785?source=LinkedIn&jr_id=6944ab7694730b739877ef6e",
-    "ats": "Workday",
-    "status": "Scraped",
-    "timestamp": "2026-01-09T15:18:52.725Z"
-  },
-  {
-    "id": "68ee74e846e5b153e5a5ab84",
-    "title": "Sr. AI Engineer",
-    "company": "",
-    "url": "https://uniphore.wd503.myworkdayjobs.com/Uniphore/job/USA---CA---Palo-Alto/Sr-AI-Engineer_JR100462?source=LinkedIn&jr_id=68ee74e846e5b153e5a5ab84",
-    "ats": "Workday",
-    "status": "Scraped",
-    "timestamp": "2026-01-09T18:18:43.593Z"
-  },
-  {
-    "id": "694498c050bbaf765056a1d3",
-    "title": "Research Scientist - Salesforce AI Research",
-    "company": "",
-    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---Palo-Alto/Research-Scientist---Salesforce-AI-Research_JR214107-1?source=LinkedIn_Jobs&jr_id=694498c050bbaf765056a1d3",
-    "ats": "Workday",
-    "status": "Scraped",
-    "timestamp": "2026-01-10T19:09:10.591Z"
-  },
-  {
-    "id": "693fd94a50bbaf76505207f1",
-    "title": "Senior AI Software Engineer",
-    "company": "",
-    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---Palo-Alto/Senior-AI-Software-Engineer_JR313048?source=LinkedIn_Jobs&jr_id=693fd94a50bbaf76505207f1",
-    "ats": "Workday",
-    "timestamp": "2026-01-13T16:08:47.151Z"
+    "id": "gh_coinbase_7559168",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7559168",
+    "title": "Site Reliability Engineer, IT Infrastructure",
+    "company": "coinbase",
+    "platform": "greenhouse",
+    "location": "Remote - USA",
+    "scraped_at": "2026-02-22T07:57:34.007Z"
   }
 ]

@@ -1,128 +1,19 @@
 [
   {
-    "title": "Senior Security Analyst III",
-    "company": "OppFi",
-    "signature": "Senior Security Analyst III|OppFi",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7523078003&utm_source=jobright&jr_id=69138fc81465e02904e95864",
-    "timestamp": "2026-01-14T17:51:05.595Z"
+    "id": "694498c050bbaf765056a1d3",
+    "title": "Research Scientist - Salesforce AI Research",
+    "company": "",
+    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---Palo-Alto/Research-Scientist---Salesforce-AI-Research_JR214107-1?source=LinkedIn_Jobs&jr_id=694498c050bbaf765056a1d3",
+    "ats": "Workday",
+    "status": "Scraped",
+    "timestamp": "2026-01-10T19:09:10.591Z"
   },
   {
-    "title": "Senior Incident Commander",
-    "company": "Aurora",
-    "signature": "Senior Incident Commander|Aurora",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8212229002&utm_source=jobright&jr_id=6905274763502c0aded78ca8",
-    "timestamp": "2026-01-14T17:53:20.368Z"
-  },
-  {
-    "title": "Software Engineer, Platform Engineering",
-    "company": "Asana",
-    "signature": "Software Engineer, Platform Engineering|Asana",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7190026&utm_source=jobright&jr_id=6908e7a2bcccf20de59d4964",
-    "timestamp": "2026-01-14T17:56:45.202Z"
-  },
-  {
-    "title": "Senior Robotics Software Engineer",
-    "company": "Labelbox",
-    "signature": "Senior Robotics Software Engineer|Labelbox",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=4855210007&utm_source=jobright&jr_id=691b71c415b415636718f166",
-    "timestamp": "2026-01-14T17:56:50.276Z"
-  },
-  {
-    "title": "Quality Systems Engineer, FlashArray",
-    "company": "Pure Storage",
-    "signature": "Quality Systems Engineer, FlashArray|Pure Storage",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7342941&utm_source=jobright&jr_id=690c66b1221b890c277fd5ff",
-    "timestamp": "2026-01-14T17:58:21.923Z"
-  },
-  {
-    "title": "Senior Software Development Engineer - iOS",
-    "company": "ID.me",
-    "signature": "Senior Software Development Engineer - iOS|ID.me",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7524529003&utm_source=jobright&jr_id=69158c86286ccf0a1512f0f9",
-    "timestamp": "2026-01-14T17:59:00.839Z"
-  },
-  {
-    "title": "Staff Software Engineer, iOS Platform",
-    "company": "Airbnb",
-    "signature": "Staff Software Engineer, iOS Platform|Airbnb",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7467354&utm_source=jobright&jr_id=693c897050bbaf76504fc086",
-    "timestamp": "2026-01-14T17:59:10.073Z"
-  },
-  {
-    "title": "Senior Software Engineer, Consumer Revenue",
-    "company": "Discord",
-    "signature": "Senior Software Engineer, Consumer Revenue|Discord",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8182912002&utm_source=jobright&jr_id=68dc784addc10244dd675ad8",
-    "timestamp": "2026-01-14T17:59:20.287Z"
-  },
-  {
-    "title": "Senior Solution Engineer",
-    "company": "Tanium",
-    "signature": "Senior Solution Engineer|Tanium",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7470218&utm_source=jobright&jr_id=6940c97daa598a08c3f06068",
-    "timestamp": "2026-01-14T17:59:37.723Z"
-  },
-  {
-    "title": "Principal Solutions Architect",
-    "company": "Keyfactor",
-    "signature": "Principal Solutions Architect|Keyfactor",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=5638970004&utm_source=jobright&jr_id=68c1ab643fd8b059a20f1571",
-    "timestamp": "2026-01-14T17:59:55.250Z"
-  },
-  {
-    "title": "Sr. Manufacturing Engineer, Battery",
-    "company": "Lucid Motors",
-    "signature": "Sr. Manufacturing Engineer, Battery|Lucid Motors",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=4912584007&utm_source=jobright&jr_id=68cdfa7ab2a74e1837edde0c",
-    "timestamp": "2026-01-14T18:04:00.779Z"
-  },
-  {
-    "title": "Senior Manufacturing Engineer",
-    "company": "Neptune Medical",
-    "signature": "Senior Manufacturing Engineer|Neptune Medical",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=4632751005&utm_source=jobright&jr_id=691faf4b3f782d2f1afbf432",
-    "timestamp": "2026-01-14T18:04:40.190Z"
-  },
-  {
-    "title": "Senior Manufacturing Process Engineer",
-    "company": "Cerebras",
-    "signature": "Senior Manufacturing Process Engineer|Cerebras",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7527022003&utm_source=jobright&jr_id=691542ab9c388539cbdf1ebe",
-    "timestamp": "2026-01-14T18:04:42.391Z"
-  },
-  {
-    "title": "Principal Supplier / Manufacturing Quality Engineer",
-    "company": "Astera Labs",
-    "signature": "Principal Supplier / Manufacturing Quality Engineer|Astera Labs",
-    "priority": 0,
-    "status": "Applied/Aggressive",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=4572668005&utm_source=jobright&jr_id=684b3c1c81ff6479fba7e26e",
-    "timestamp": "2026-01-14T18:06:38.916Z"
+    "id": "693fd94a50bbaf76505207f1",
+    "title": "Senior AI Software Engineer",
+    "company": "",
+    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---Palo-Alto/Senior-AI-Software-Engineer_JR313048?source=LinkedIn_Jobs&jr_id=693fd94a50bbaf76505207f1",
+    "ats": "Workday",
+    "timestamp": "2026-01-13T16:08:47.151Z"
   }
 ]
