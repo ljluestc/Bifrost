@@ -1,20 +1,11 @@
 [
   {
-    "id": "gh_elastic_7590700",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7590700",
-    "title": "Principal Software Engineer II (Performance Team) - Elasticsearch",
-    "company": "elastic",
-    "platform": "greenhouse",
+    "id": "lever_anchorage_0a59cb2a-0ce1-49c4-b3ba-1c9b77987ca8",
+    "url": "https://jobs.lever.co/anchorage/0a59cb2a-0ce1-49c4-b3ba-1c9b77987ca8/apply",
+    "title": "Engineering Manager, Financial Infrastructure",
+    "company": "anchorage",
+    "platform": "lever",
     "location": "United States",
-    "scraped_at": "2026-02-24T22:23:30.828Z"
-  },
-  {
-    "id": "gh_elastic_7652053",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7652053",
-    "title": "Principal Software Engineer II (Performance Team) - Elasticsearch",
-    "company": "elastic",
-    "platform": "greenhouse",
-    "location": "Canada",
-    "scraped_at": "2026-02-24T22:23:30.828Z"
+    "scraped_at": "2026-02-24T22:33:15.823Z"
   }
 ]
