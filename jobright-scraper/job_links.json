@@ -1,11 +1,56 @@
 [
   {
-    "id": "lever_anchorage_0a59cb2a-0ce1-49c4-b3ba-1c9b77987ca8",
-    "url": "https://jobs.lever.co/anchorage/0a59cb2a-0ce1-49c4-b3ba-1c9b77987ca8/apply",
-    "title": "Engineering Manager, Financial Infrastructure",
+    "id": "gh_airbnb_7651517",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7651517",
+    "title": "Senior Software Engineer, Messaging Foundations ",
+    "company": "airbnb",
+    "platform": "greenhouse",
+    "location": "Remote, USA ",
+    "scraped_at": "2026-02-24T22:36:42.853Z"
+  },
+  {
+    "id": "gh_stripe_7325252",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7325252",
+    "title": "Frontend Engineer, Payments & Risk",
+    "company": "stripe",
+    "platform": "greenhouse",
+    "location": "N/A",
+    "scraped_at": "2026-02-24T22:36:43.099Z"
+  },
+  {
+    "id": "gh_elastic_7517615",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7517615",
+    "title": "Senior Site Reliability Engineer (Resilience) - Platform Resilience",
+    "company": "elastic",
+    "platform": "greenhouse",
+    "location": "Spain",
+    "scraped_at": "2026-02-24T22:36:51.185Z"
+  },
+  {
+    "id": "lever_anchorage_1407f1e9-8a54-4c3f-afe0-62b96579e815",
+    "url": "https://jobs.lever.co/anchorage/1407f1e9-8a54-4c3f-afe0-62b96579e815/apply",
+    "title": "Member of Technical Staff, Financial Infrastructure",
     "company": "anchorage",
     "platform": "lever",
     "location": "United States",
-    "scraped_at": "2026-02-24T22:33:15.823Z"
+    "scraped_at": "2026-02-24T22:39:23.110Z"
+  },
+  {
+    "id": "lever_anchorage_f2f96be1-0e48-4eee-919c-af581ee649ae",
+    "url": "https://jobs.lever.co/anchorage/f2f96be1-0e48-4eee-919c-af581ee649ae/apply",
+    "title": "Member of Technical Staff, Financial Infrastructure",
+    "company": "anchorage",
+    "platform": "lever",
+    "location": "United States",
+    "scraped_at": "2026-02-24T22:39:23.110Z"
+  },
+  {
+    "id": "sr_Visa_744000111198736",
+    "url": "https://api.smartrecruiters.com/v1/companies/Visa/postings/744000111198736",
+    "title": "Senior Software Engineer",
+    "company": "Visa",
+    "platform": "smartrecruiters",
+    "location": "Austin",
+    "scraped_at": "2026-02-24T22:40:48.242Z"
   }
 ]
