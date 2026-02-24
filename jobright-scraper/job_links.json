@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": "gh_databricks_8434341002",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8434341002",
+    "title": "Solutions Architect",
+    "company": "databricks",
+    "platform": "greenhouse",
+    "location": "Seattle, Washington",
+    "scraped_at": "2026-02-24T21:20:28.200Z"
+  },
+  {
+    "id": "gh_sofi_7452582003",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=7452582003",
+    "title": "Senior Software Engineer Full-Stack, Member Growth",
+    "company": "sofi",
+    "platform": "greenhouse",
+    "location": "CA - San Francisco HQ",
+    "scraped_at": "2026-02-24T21:20:57.642Z"
+  }
+]
