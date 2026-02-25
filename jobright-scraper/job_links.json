@@ -1,20 +1,11 @@
 [
   {
-    "id": "gh_affirm_7638237003",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7638237003",
-    "title": "Senior Software Engineer, Backend (Streaming Infrastructure)",
-    "company": "affirm",
-    "platform": "greenhouse",
-    "location": "Remote Canada",
-    "scraped_at": "2026-02-25T15:43:55.874Z"
-  },
-  {
-    "id": "gh_affirm_7638235003",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=7638235003",
-    "title": "Senior Software Engineer, Backend (Streaming Infrastructure)",
-    "company": "affirm",
-    "platform": "greenhouse",
-    "location": "Remote US",
-    "scraped_at": "2026-02-25T15:43:55.875Z"
+    "id": "sr_Visa_744000111414225",
+    "url": "https://api.smartrecruiters.com/v1/companies/Visa/postings/744000111414225",
+    "title": "Sr. SW Engineer (3 - 5 years of exp. as Full-stack Developer - Java, React / Angular)",
+    "company": "Visa",
+    "platform": "smartrecruiters",
+    "location": "Bengaluru",
+    "scraped_at": "2026-02-25T15:53:45.958Z"
   }
 ]
