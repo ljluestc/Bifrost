@@ -1,20 +1,11 @@
 [
   {
-    "id": "gh_databricks_8399467002",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8399467002",
-    "title": "Delivery Solutions Architect - Financial Services (Banking & Payments)",
+    "id": "gh_databricks_8416959002",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8416959002",
+    "title": "Staff Software Engineer – Customer Experience Intelligence (CXI)",
     "company": "databricks",
     "platform": "greenhouse",
-    "location": "Remote - Georgia; Remote - Illinois; Remote - New York; Remote - North Carolina; Remote - Texas",
-    "scraped_at": "2026-02-25T01:05:21.205Z"
-  },
-  {
-    "id": "sr_Visa_744000111210709",
-    "url": "https://api.smartrecruiters.com/v1/companies/Visa/postings/744000111210709",
-    "title": "Sr. Data Engineer",
-    "company": "Visa",
-    "platform": "smartrecruiters",
-    "location": "Bellevue",
-    "scraped_at": "2026-02-25T01:10:16.928Z"
+    "location": "Mountain View, California; San Francisco, California",
+    "scraped_at": "2026-02-25T01:12:04.901Z"
   }
 ]
