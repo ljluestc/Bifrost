@@ -1,11 +1,20 @@
 [
   {
-    "id": "gh_databricks_8407183002",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8407183002",
+    "id": "gh_databricks_8437289002",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8437289002",
     "title": "Lead Solutions Architect - AI/BI",
     "company": "databricks",
     "platform": "greenhouse",
-    "location": "London, United Kingdom",
-    "scraped_at": "2026-02-25T12:07:44.861Z"
+    "location": "Amsterdam, Netherlands",
+    "scraped_at": "2026-02-25T12:13:16.510Z"
+  },
+  {
+    "id": "gh_databricks_8437301002",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8437301002",
+    "title": "Lead Solutions Architect - AI/BI",
+    "company": "databricks",
+    "platform": "greenhouse",
+    "location": "Munich, Germany",
+    "scraped_at": "2026-02-25T12:13:16.510Z"
   }
 ]
