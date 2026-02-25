@@ -1,29 +1,11 @@
 [
   {
-    "id": "gh_databricks_8437277002",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8437277002",
+    "id": "gh_databricks_8437278002",
+    "url": "https://boards.greenhouse.io/embed/job_app?token=8437278002",
     "title": "Lead Solutions Architect - Lakebase",
     "company": "databricks",
     "platform": "greenhouse",
-    "location": "Munich, Germany",
-    "scraped_at": "2026-02-25T11:55:29.519Z"
-  },
-  {
-    "id": "gh_databricks_8407181002",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8407181002",
-    "title": "Lead Solutions Architect - Lakebase",
-    "company": "databricks",
-    "platform": "greenhouse",
-    "location": "London, United Kingdom",
-    "scraped_at": "2026-02-25T11:55:29.519Z"
-  },
-  {
-    "id": "gh_databricks_8437276002",
-    "url": "https://boards.greenhouse.io/embed/job_app?token=8437276002",
-    "title": "Lead Solutions Architect - Lakebase",
-    "company": "databricks",
-    "platform": "greenhouse",
-    "location": "Amsterdam, Netherlands",
-    "scraped_at": "2026-02-25T11:55:29.519Z"
+    "location": "Paris, France",
+    "scraped_at": "2026-02-25T12:00:29.210Z"
   }
 ]
