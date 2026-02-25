@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "sr_Visa_744000111384376",
+    "url": "https://api.smartrecruiters.com/v1/companies/Visa/postings/744000111384376",
+    "title": "Manager, Site Reliability Engineer, Platform",
+    "company": "Visa",
+    "platform": "smartrecruiters",
+    "location": "São Paulo",
+    "scraped_at": "2026-02-25T14:21:00.502Z"
+  }
+]
