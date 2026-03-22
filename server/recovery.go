@@ -362,6 +362,7 @@ func recoveryData(data map[string]dbSaveInfo, isStop bool) {
 						LastQueueBinlog:   toServerLastQueueBinlog,
 						PluginParam:       toServer.PluginParam,
 						FileQueueStatus:   toServer.FileQueueStatus,
+						DimensionJoin:     toServer.DimensionJoin,
 						Status:            status,
 					}
 					if toServerObj.FileQueueStatus {

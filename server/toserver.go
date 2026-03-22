@@ -43,7 +43,8 @@ type ToServer struct {
 	fileQueueObj                  *filequeue.Queue
 	FileQueueStatus               bool // 是否启动文件队列
 	Notes                         string
-	ThreadCount                   int16  // 消费线程数量
+	DimensionJoin                 *DimensionJoinConfig // 维表join配置
+	ThreadCount                   int16                // 消费线程数量
 	FileQueueUsableCount          uint32 // 在开始文件队列的配置下，每次写入 ToServerChan 后 ，在 FileQueueUsableCountTimeDiff 时间内 队列都是满的次数
 	FileQueueUsableCountStartTime int64  // 开始统计 FileQueueUsableCount 计算的时间
 	statusChan                    chan bool

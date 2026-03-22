@@ -37,6 +37,7 @@ type TableToServerParam struct {
 	FilterQuery   bool
 	FilterUpdate  bool
 	PluginParam   map[string]interface{}
+	DimensionJoin *server.DimensionJoinConfig
 	ToServerId    int
 	Index         int
 }
@@ -91,6 +92,7 @@ func (c *TableToServerController) Add() {
 		PluginName:    param.PluginName,
 		FieldList:     param.FieldList,
 		PluginParam:   param.PluginParam,
+		DimensionJoin: param.DimensionJoin,
 	}
 	SchemaName := tansferSchemaName(param.SchemaName)
 	TableName := tansferTableName(param.TableName)

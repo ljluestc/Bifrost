@@ -639,6 +639,10 @@ func (This *ToServer) sendToServer(paramData *pluginDriver.PluginDataType, MyCon
 	if b == false {
 		return paramData, nil, nil
 	}
+
+	// 维表join: 在过滤字段之后，发送到插件之前，对数据进行维表关联富化
+	data = applyDimensionJoin(This, data)
+
 	PluginConn, err := This.getPluginAndSetParam(MyConsumerId)
 	if err != nil {
 		return lastSuccessCommitData, data, err
