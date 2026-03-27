@@ -178,7 +178,7 @@ func startCrond(job *History) error {
 	defer job.Unlock()
 	EntryID, err := crodObj.AddJob(job.Property.Crontab, job)
 	if err != nil {
-		log.Printf("[ERROR] history add crontab job DbName:%s SchemaName:%s ID:%d Crontab  err:%+v \n", job.DbName, job.SchemaName, job.ID, job.Property.Crontab, err)
+		log.Printf("[ERROR] history add crontab job DbName:%s SchemaName:%s ID:%d Crontab:%s err:%+v \n", job.DbName, job.SchemaName, job.ID, job.Property.Crontab, err)
 		return err
 	}
 	job.cronEntryID = EntryID
